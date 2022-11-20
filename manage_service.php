@@ -1,10 +1,13 @@
 <?php
-session_start();
-error_reporting(0);
+include_once 'auth/session.php';
 include('includes/dbconnection.php');
-// if (strlen($_SESSION['bpmsaid']==0)) {
-//   header('location:logout.php');
-// } 
+
+if(isset($_SESSION['permission'])){
+  if (($_SESSION['permission'] != "Superuser") && ($_SESSION['permission'] != "Admin")) {
+  header('location: dashboard.php?error=denied');
+  exit();
+  }
+  }; 
 ?>
 <!DOCTYPE html>
 <html>
@@ -25,12 +28,12 @@ include('includes/dbconnection.php');
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1>DataTables</h1>
+              <h1>Jean's Mobile Beauty and Wellness Services</h1>
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">DataTables</li>
+                <li class="breadcrumb-item active">Manage Services</li>
               </ol>
             </div>
           </div>
@@ -44,7 +47,7 @@ include('includes/dbconnection.php');
             <div class="col-12">
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title">DataTable with services</h3>
+                  <h3 class="card-title">All Services</h3>
                 </div>
                 <!-- /.card-header -->
                 <div id="editData" class="modal fade">
@@ -72,10 +75,11 @@ include('includes/dbconnection.php');
                 <table id="example1" class="table table-bordered table-hover">
                   <thead>
                     <tr>
-                      <th>#</th> 
-                      <th>Service Name</th> 
-                      <th>Service Price</th> 
-                      <th>Creation Date</th>
+                      <th></th> 
+                      <th>Name</th>
+                      <th>Description</th>
+                      <th>Price</th> 
+                      <th>Duration</th>
                       <th>Action</th> 
                     </tr>
                   </thead>
@@ -89,10 +93,12 @@ include('includes/dbconnection.php');
                       <tr>
                         <th scope="row"><?php echo $cnt;?></th> 
                         <td><?php  echo $row['ServiceName'];?></td>
-                        <td><?php echo htmlentities(number_format($row['Cost'], 0, '.', ','));?></td>
-                        <td><?php  echo $row['CreationDate'];?></td> 
+                        <td><?php  echo $row['description'];?></td>
+                        <td><?php echo  'R'. htmlentities(number_format($row['Cost'], 0, '.', ','));?></td>
+                        <td><?php  echo $row['duration'].' minutes';?></td> 
                         <td>
-                         <a href="#"  class=" edit_data" id="<?php echo  $row['ID']; ?>" title="click for edit">Edit</i></a>
+                         <button class="editBtn"><a href="#"  class=" edit_data" id="<?php echo  $row['ID']; ?>" title="click for edit">Edit</i></a></button>
+                         <button class="deleteBtn">Delete</button>
                         </td>
                       </tr>   
                       <?php 

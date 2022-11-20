@@ -1,8 +1,8 @@
 <?php
-session_start();
-error_reporting(0);
-include('includes/dbconnection.php');
-if (isset($_SESSION['sid'])) {
+include_once 'auth/session.php';
+include 'includes/dbconnection.php';
+
+if (!isset($_SESSION['sid'])) {
   header('location: logout.php');
   exit();
 } 
@@ -73,7 +73,7 @@ if (isset($_SESSION['sid'])) {
                   <div class="modal-dialog ">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h5 class="modal-title">Assign Services</h5>
+                        <h5 class="modal-title">Create Invoice</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
@@ -96,8 +96,9 @@ if (isset($_SESSION['sid'])) {
                     <tr> 
                       <th>#</th> 
                       <th>Name</th> 
-                      <th>Mobile</th> 
-                      <th>Creation Date</th>
+                      <th>Telephone</th>
+                      <th>Email</th> 
+                      <th>Details</th>
                       <th>Action</th> 
                     </tr> 
                   </thead> 
@@ -113,10 +114,11 @@ if (isset($_SESSION['sid'])) {
                         <th scope="row"><?php echo $cnt;?></th> 
                         <td><?php  echo $row['Name'];?></td> 
                         <td><?php  echo $row['MobileNumber'];?></td>
-                        <td><?php  echo $row['CreationDate'];?></td> 
+                        <td><?php  echo $row['Email'];?></td>
+                        <td><?php  echo $row['Details'];?></td> 
                         <td>
-                          <a href="#" class=" btn btn-sm btn-primary edit_data" id="<?php echo  $row['ID']; ?>" title="click for edit">Edit</a>
-                          <a href="#" class=" btn btn-sm btn-info edit_data2" id="<?php echo  $row['ID']; ?>" title="assign services">Assign Services</a></td> 
+                          <a href="#" class=" btn btn-sm editBtn edit_data" id="<?php echo  $row['ID']; ?>" title="click for edit">Edit</a>
+                          <a href="#" class=" btn btn-sm completeBtn edit_data2" id="<?php echo  $row['ID']; ?>" title="assign services">Generate Invoice</a></td> 
                         </tr>   
                         <?php 
                         $cnt=$cnt+1;

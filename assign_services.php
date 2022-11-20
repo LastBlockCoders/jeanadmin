@@ -1,7 +1,12 @@
 <?php
-session_start();
-error_reporting(0);
-include('includes/dbconnection.php');
+include_once 'auth/session.php';
+include_once 'auth/db.php';
+
+if (!isset($_SESSION['sid'])) {
+  header('location: logout.php');
+  exit();
+} 
+
 if(isset($_POST['save'])){
   $uid=$_SESSION['gid'];
   $invoiceid=mt_rand(100000000, 999999999);
@@ -9,8 +14,14 @@ if(isset($_POST['save'])){
   for($i=0;$i<count($sid);$i++){
    $svid=$sid[$i];
    $ret=mysqli_query($con,"insert into tblinvoice(Userid,ServiceId,BillingId) values('$uid','$svid','$invoiceid');");
-   echo '<script>alert("Invoice created successfully. Invoice number is "+"'.$invoiceid.'")</script>';
-   echo "<script>window.location.href ='invoices.php'</script>";
+   echo "<script type='text/javascript'>
+   Swal.fire({
+     icon: 'success',
+     title: 'Invoice genered',
+     text: '$invoiceid',
+     timer: 3000
+     });
+     setTimeout(function(){window.open('invoice.php','_self')},1000);</script>";
  }
 }
 ?>
@@ -20,7 +31,7 @@ if(isset($_POST['save'])){
     <table class="table table-bordered"> 
       <thead>
        <tr>
-        <th>#</th> <th>Service Name</th> <th>Service Price</th> <th>Action</th> 
+        <th>#</th> <th>Service</th> <th>Price</th> <th>Action</th> 
       </tr> 
     </thead> 
     <tbody>
@@ -47,7 +58,7 @@ if(isset($_POST['save'])){
       }?>
       <tr>
         <td colspan="4" align="center">
-          <button type="submit" name="save" class="btn btn-success">Submit</button>   
+          <button type="submit" name="save" class="btn completeBtn">Submit</button>   
         </td>
       </tr>
     </tbody> 

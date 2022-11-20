@@ -1,8 +1,9 @@
 <?php
-session_start();
-error_reporting(0);
-include('includes/dbconnection.php');
-if (isset($_SESSION['sid'])) {
+
+include_once 'includes/dbconnection.php';
+include_once 'auth/session.php';
+
+if (!isset($_SESSION['sid'])) {
   header('location: logout.php');
   exit();
 }  else{
@@ -13,7 +14,7 @@ if (isset($_SESSION['sid'])) {
     $mobilenum=$_POST['mobilenum'];
     $gender=$_POST['gender'];
     $details=$_POST['details'];
-    $query=mysqli_query($con, "insert into  tblcustomers(Name,Email,MobileNumber,Gender,Details) value('$name','$email','$mobilenum','$gender','$details')");
+    $query=mysqli_query($con, "insert into  tblcustomers(Name,Email,MobileNumber,Gender,Details) value('$name','$email','$mobilenum','$details')");
     if ($query) {
       echo "<script>alert('Customer has been added.');</script>"; 
       echo "<script>window.location.href = 'add_customer.php'</script>"; 
@@ -58,13 +59,13 @@ if (isset($_SESSION['sid'])) {
             <div class="row offset-md-1">
              <div class="col-md-8 mr-3">
               <!-- general form elements -->
-              <div class="card card-primary">
-                <div class="card-header">
+              <div class="card rounded" style="background: teal; color: white;">
+                <div class="card-header  rounded">
                   <h3 class="card-title">Add Customer</h3>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form method="post">
+                <form method="post" class="rounded">
                   <div class="card-body">
                     <div class="form-group"> 
                       <label for="exampleInputEmail1">Name</label> 
@@ -78,23 +79,11 @@ if (isset($_SESSION['sid'])) {
                       <label for="exampleInputEmail1">Mobile Number</label> 
                       <input type="text" class="form-control" id="mobilenum" name="mobilenum" placeholder="Mobile Number" value="" required="true" >
                     </div>
-                    <div class="radio">
-                      <p style="padding-top: 20px; font-size: 15px"> <strong>Gender:</strong> 
-                        <label>
-                          <input type="radio" name="gender" id="gender" value="Female" checked="true">
-                          Female
-                        </label>
-                        <label>
-                          <input type="radio" name="gender" id="gender" value="Male">
-                          Male
-                        </label>
-                      </p>
-                    </div>
                     <div class="form-group">
                       <label for="exampleInputEmail1">Address/Details</label> 
                       <textarea type="text" class="form-control" id="details" name="details" placeholder="Details" required="true" rows="4" cols="4"></textarea> 
                     </div>
-                    <button type="submit" name="submit" class="btn btn-info">Add</button>
+                    <button type="submit" name="submit" class="btn ResBtn">Add</button>
                   </form> 
                 </div>
               </div>

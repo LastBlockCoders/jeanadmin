@@ -1,24 +1,41 @@
 <?php
-session_start();
-error_reporting(0);
-include('includes/dbconnection.php');
+include_once 'auth/db.php';
+include_once 'includes/dbconnection.php';
+
+ 
 if (isset($_SESSION['sid'])) {
   header('location: logout.php');
   exit();
-}  else{
+}  
+else{
   if(isset($_POST['submit']))
   {
-    $sername=$_POST['sername'];
-    $cost=$_POST['cost'];
-    $query=mysqli_query($con, "insert into  tblservices(ServiceName,Cost) value('$sername','$cost')");
+    $cat_id = $_POST['category'];
+    $name=$_POST['sername'];
+    $description=$_POST['description'];
+    $price=$_POST['cost'];
+    $duration=$_POST['duration'];
+    $query=mysqli_query($con, "insert into  tblservices(cat_id,name,description,price,duration) values($cat_id,'$name','$description',$price,$duration);");
     if ($query) {
-      echo "<script>alert('Service has been added.');</script>"; 
-      echo "<script>window.location.href = 'add_service.php'</script>";   
-      $msg="";
+      echo "<script type='text/javascript'>
+			Swal.fire({
+				icon: 'success',
+				title: 'Success',
+				text: 'New Service Added',
+				timer: 2000
+			  });
+			</script>";
     }
     else
     {
-      echo "<script>alert('Something Went Wrong. Please try again.');</script>";    
+      echo "<script type='text/javascript'>
+			Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: 'Something went wrong',
+				timer: 2000
+			  });
+			</script>";    
     }
   }
   ?>
@@ -45,7 +62,7 @@ if (isset($_SESSION['sid'])) {
               <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                   <li class="breadcrumb-item"><a href="#">Home</a></li>
-                  <li class="breadcrumb-item active">Add service</li>
+                  <li class="breadcrumb-item active">Add Service</li>
                 </ol>
               </div>
             </div>
@@ -58,27 +75,48 @@ if (isset($_SESSION['sid'])) {
             <div class="row offset-md-2">
              <div class="col-md-6">
               <!-- general form elements -->
-              <div class="card card-primary">
+              <div class="card rounded" style="background: teal; color: white;">
                 <div class="card-header">
-                  <h3 class="card-title">Add service</h3>
+                  <h3 class="card-title">Add Beauty/Wellness Service</h3>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
                 <form role="form" method="post">
                   <div class="card-body">
                     <div class="form-group">
-                      <label for="exampleInputEmail1">Service Name</label>
+                      <label for="exampleInputPassword1">Category</label>
+                      <select name="category" id="category" class="form-control"required>
+												<option value="">Select Service Category</option>
+												<?php $query=mysqli_query($con,"select * from servicecategory");
+												while($row=mysqli_fetch_array($query))
+												{
+													?>
+													<option style="color: teal; text-transform: capitalize;" value="<?php echo $row['id'];?>" ><?php echo $row['name'];?></option>
+													<?php
+												} ?> 
+												</select>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Name</label>
                       <input type="text" class="form-control" id="sername" name="sername" placeholder="Enter service name">
                     </div>
                     <div class="form-group">
-                      <label for="exampleInputPassword1">Cost</label>
-                      <input type="text" class="form-control" id="cost" name="cost" placeholder="cost">
+                      <label for="exampleInputEmail1">Description</label>
+                      <input type="text" class="form-control" id="description" name="description" placeholder="Enter description of service">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Price</label>
+                      <input type="text" class="form-control" id="cost" name="cost" placeholder="Price">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Duration (in minutes)</label>
+                      <input type="number" class="form-control" id="duration" name="duration" placeholder="Enter duration of service">
                     </div>
                   </div>
                   <!-- /.card-body -->
 
                   <div class="card-footer">
-                    <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" name="submit" class="btn ResBtn">Submit</button>
                   </div>
                 </form>
               </div>

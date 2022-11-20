@@ -8,7 +8,7 @@ if (!isset($_SESSION['sid'])) {
 } 
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <?php @include("includes/head.php"); ?>
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">

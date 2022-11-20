@@ -1,7 +1,6 @@
 <?php
 session_start();
-error_reporting(0);
-include('includes/dbconnection.php');
+include('auth/db.php');
 ?>
 <div id="page-wrapper">
 	<div class="main-page">
@@ -10,7 +9,7 @@ include('includes/dbconnection.php');
 			<div class="table-responsive bs-example widget-shadow">
 				<?php
 				$invid=$_POST['edit_id'];
-				$ret=mysqli_query($con,"select DISTINCT  tblinvoice.PostingDate,tblcustomers.Name,tblcustomers.Email,tblcustomers.MobileNumber,tblcustomers.Gender
+				$ret=mysqli_query($con,"select DISTINCT  tblinvoice.PostingDate,tblcustomers.Name,tblcustomers.Email,tblcustomers.MobileNumber
 					from  tblinvoice 
 					join tblcustomers on tblcustomers.ID=tblinvoice.Userid 
 					where tblinvoice.BillingId='$invid'");
@@ -21,7 +20,7 @@ include('includes/dbconnection.php');
 					<h4>Invoice #<?php echo $invid;?></h4>
 					<table class="table table-bordered" width="100%" border="1"> 
 						<tr>
-							<th colspan="6">Customer Details</th>	
+							<th colspan="6">Client Details</th>	
 						</tr>
 						<tr> 
 							<th>Name</th> 
@@ -31,12 +30,7 @@ include('includes/dbconnection.php');
 							<th>Email </th> 
 							<td><?php echo $row['Email']?></td>
 						</tr> 
-						<tr> 
-							<th>Gender</th> 
-							<td><?php echo $row['Gender']?></td> 
-							<th>Invoice Date</th> 
-							<td colspan="3"><?php echo $row['PostingDate']?></td> 
-						</tr> 
+					
 					</table> 
 					<?php 
 				}?>
@@ -51,25 +45,28 @@ include('includes/dbconnection.php');
 					</tr>
 
 					<?php
+					
 					$ret=mysqli_query($con,"select tblservices.ServiceName,tblservices.Cost  
 						from  tblinvoice 
 						join tblservices on tblservices.ID=tblinvoice.ServiceId 
 						where tblinvoice.BillingId='$invid'");
 					$cnt=1;
+					$gtotal=0;
 					while ($row=mysqli_fetch_array($ret)) {
 						?>
 						<tr>
 							<th><?php echo $cnt;?></th>
 							<td><?php echo $row['ServiceName']?></td>	
-							<td><?php echo $subtotal=$row['Cost']?></td>
+							<td><?php echo 'R '.$subtotal=$row['Cost']?></td>
 						</tr>
 						<?php 
+						
 						$cnt=$cnt+1;
-						$gtotal+=$subtotal;
+						$gtotal +=$subtotal;
 					} ?>
 					<tr>
 						<th colspan="2" style="text-align:center">Grand Total</th>
-						<th><?php echo $gtotal?></th>
+						<th><?php echo 'R '.$gtotal?></th>
 					</tr>
 				</table>
 				<p style="margin-top:1%"  align="center">

@@ -1,7 +1,7 @@
 <?php
-session_start();
-error_reporting(0);
-include('includes/dbconnection.php');
+include_once 'auth/session.php';
+include 'includes/dbconnection.php';
+
 // if (strlen($_SESSION['bpmsaid']==0)) {
 //   header('location:logout.php');
 // } 
@@ -16,7 +16,7 @@ include('includes/dbconnection.php');
     <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
-    <?php @include("includes/sidebar.php"); ?>
+    <?php include("includes/sidebar.php"); ?>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -25,12 +25,12 @@ include('includes/dbconnection.php');
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1>DataTables</h1>
+              <h1>Client Invoices</h1>
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">DataTables</li>
+                <li class="breadcrumb-item active">Invoices</li>
               </ol>
             </div>
           </div>
@@ -93,7 +93,7 @@ include('includes/dbconnection.php');
                         <td><?php  echo $row['BillingId'];?></td>
                         <td><?php  echo $row['Name'];?></td>
                         <td><?php  echo $row['PostingDate'];?></td> 
-                        <td><a href="#"  class=" edit_data" id="<?php echo  $row['BillingId']; ?>" title="click to view">View</a></td> 
+                        <td><button class="viewBtn"><a href="#"  class=" edit_data" id="<?php echo  $row['BillingId']; ?>" title="click to view">View</a></button></td> 
 
                         </tr>   <?php 
                         $cnt=$cnt+1;

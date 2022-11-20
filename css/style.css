@@ -1,0 +1,161 @@
+
+*{
+    font-family: 'Montserrat', sans-serif;
+   
+}
+
+/* buttons */
+
+.editBtn{
+    border: none;
+    border-radius: 10px;
+    padding: 2px 10px;
+    background-color: teal;
+    color: white;
+    cursor: pointer;
+    margin-right: 5px;
+    border: none;
+}
+
+.viewBtn{
+  border-radius: 10px;
+  border: none;
+    color: teal;
+    background-color: #FFE5B4;
+    cursor: pointer;
+    padding: 5px 10px;
+    border: none;
+  
+}
+.deleteBtn{
+    color: white;
+    background-color: red;
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 2px 10px;
+    border: none;
+    margin-left: 5px;
+}
+
+.deleteLabel{
+  color: white;
+  background-color: red;
+  cursor: pointer;
+  border-radius: 10px;
+  padding: 2px 10px;
+  border: none;
+  font-size: small;
+  margin-left: 5px;
+}
+.editBtn a {
+  color: white;
+}
+.viewBtn a {
+  color: teal;
+}
+.deleteBtn a {
+  color: white;
+}
+.resBtn a {
+  color: teal;
+}
+.completeBtn a {
+  color: white;
+}
+
+
+
+
+
+.PayBtn{
+  border-radius: 10px;
+    color: white;
+    background-color: teal;
+    cursor: pointer;
+    padding: 0px 10px;
+    border: none;
+    font-size: small;
+    margin-right: 10px;
+}
+.ResBtn{
+  border-radius: 10px;
+    color: teal;
+    background-color: gold;
+    cursor: pointer;
+    padding: 3px 10px;
+    border: none;
+    margin-right: 10px;
+}
+.ResLabel{
+  border-radius: 10px;
+    color: teal;
+    background-color: gold;
+    cursor: pointer;
+    padding: 0px 10px;
+    border: none;
+    font-size: small;
+    margin-right: 10px;
+}
+.scheduledBtn{
+ 
+    color: white;
+    background-color: lime;
+    cursor: pointer;
+    padding: 0px 10px;
+    border: none;
+    font-size: small;
+    margin-left: 5px;
+}
+
+.completeBtn{
+
+  color: white;
+  background-color: green;
+  cursor: pointer;
+  padding: 2px 10px;
+  border: none;
+  margin-left: 5px;
+  border-radius: 10px;
+}
+.completeLabel{
+
+  color: white;
+  background-color: green;
+  cursor: pointer;
+  padding: 0px 10px;
+  border: none;
+  font-size: small;
+  margin-left: 5px;
+}
+
+.pendingBtn{
+color: white;
+background-color: var(--blue);
+cursor: pointer;
+padding: 0px 10px;
+border: none;
+font-size: small;
+margin-left: 5px;
+}
+.pendingLabel{
+  color: white;
+  background-color: var(--blue);
+  cursor: pointer;
+  padding: 0px 10px;
+  border: none;
+  font-size: small;
+  margin-left: 5px;
+  }
+.missedBtn{
+color: white;
+background-color: orange;
+cursor: pointer;
+padding: 0px 10px;
+border: none;
+font-size: small;
+margin-left: 5px;
+}
+
+.rounded{
+  border-radius: 10px;
+}

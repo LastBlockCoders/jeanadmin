@@ -1,9 +1,10 @@
 <?php
-session_start();
-error_reporting(0);
-include('includes/dbconnection.php');
-if (strlen($_SESSION['sid']==0)) {
-  header('location:logout.php');
+include_once 'auth/session.php';
+include_once 'includes/dbconnection.php';
+
+if (!isset($_SESSION['sid'])) {
+  header('location: logout.php');
+  exit();
 } 
 ?>
 <!DOCTYPE html>
@@ -19,13 +20,13 @@ if (strlen($_SESSION['sid']==0)) {
     <?php @include("includes/sidebar.php"); ?>
 
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+    <div class="content-wrapper"  style="font-size: smaller">
       <!-- Content Header (Page header) -->
-      <section class="content-header">
+      <section class="content-header" style="font-size: smaller">
         <div class="container-fluid">
           <div class="row mb-2">
-            <div class="col-sm-6">
-              <h1>Appointments</h1>
+            <div class="col-sm-6" >
+              <h1 style="font-size: x-larger">Appointments</h1>
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
@@ -68,34 +69,36 @@ if (strlen($_SESSION['sid']==0)) {
                  <!-- /.modal -->
                </div>
                <!--   end modal -->
-               <div class="card-body">
-                <table id="example1" class="table table-bordered table-hover">
+               <?php
+               include_once 'functions/functions.php';
+               ?>
+               <div class="card-body" style="font-size: smaller">
+                <table id="example1" class="table table-hover">
                   <thead> 
                     <tr> 
-                      <th>#</th> 
-                      <th> Appointment Number</th> 
-                      <th>Name</th><th>Mobile Number</th> 
-                      <th>Appointment Date</th>
-                      <th>Appointment Time</th>
+                      <th>Service</th> 
+                      <th>Date</th>
+                      <th>Time</th>
+                      <th>Location</th>
+                      <th>Distance</th>
                       <th>Action</th> 
                     </tr> 
                   </thead> 
                   <tbody>
                     <?php
-                    $ret=mysqli_query($con,"select *from  tblappointment where Status=''");
+                    $ret=mysqli_query($con,"select *from  tblappointment where Status='2'");
                     $cnt=1;
                     while ($row=mysqli_fetch_array($ret)) {
 
                       ?>
 
                       <tr> 
-                        <th scope="row"><?php echo $cnt;?></th> 
-                        <td><?php  echo $row['AptNumber'];?></td> 
-                        <td><?php  echo $row['Name'];?></td>
-                        <td><?php  echo $row['PhoneNumber'];?></td>
+                        <td><?php  echo GetServiceName($con,$row['Services']);?></td>
                         <td><?php  echo $row['AptDate'];?></td> 
-                        <td><?php  echo $row['AptTime'];?></td> 
-                        <td><a href="#" class=" edit_data" id="<?php echo  $row['ID']; ?>" title="click for edit">View</a></td> 
+                        <td><?php  echo $row['AptTime'];?></td>
+                        <td><?php  echo $row['location'];?></td>
+                        <td><?php  echo $row['loc_distance'].' km away and '.$row['loc_time'].' minutes drive';?></td> 
+                        <td><button class="viewBtn"><a href="#" class=" edit_data" id="<?php echo  $row['ID']; ?>" title="click for edit">View</a></td> 
                       </tr>   
                       <?php 
                       $cnt=$cnt+1;

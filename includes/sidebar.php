@@ -2,9 +2,7 @@
  <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Brand Logo -->
   <a href="dashboard.php" class="brand-link">
-    <img src="company/LOGO.png" alt="Jean's" class="brand-image img-circle elevation-3"
-    style="opacity: .8">
-    <span class="brand-text font-weight-light">Jean's Mobile Beauty and Wellness</span>
+    <span class="brand-text font-weight-bold">Jean's Admin</span>
   </a>
 
   <!-- Sidebar -->
@@ -13,9 +11,9 @@
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <?php
       $eid=$_SESSION['sid'];
-      $sql="SELECT * from tblusers   where id=:eid ";                                    
+      $sql="SELECT * from tblusers   where id=:eid;";                                    
       $query = $dbh -> prepare($sql);
-      $query-> bindParam(':eid', $eid, PDO::PARAM_STR);
+      $query-> bindParam(':eid', $eid, PDO::PARAM_INT);
       $query->execute();
       $results=$query->fetchAll(PDO::FETCH_OBJ);
 
@@ -42,6 +40,7 @@
     <!-- Sidebar Menu -->
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+      <li class="nav-header">QUICK MENU</li>
         <li class="nav-item has-treeview menu-open">
           <a href="dashboard.php" class="nav-link active">
             <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -52,7 +51,7 @@
         </li>
         <li class="nav-item has-treeview">
           <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-chart-pie"></i>
+            <i class="nav-icon fa fa-shopping-basket"></i>
             <p>
               Services
               <i class="right fas fa-angle-left"></i>
@@ -61,13 +60,13 @@
           <ul class="nav nav-treeview">
             <li class="nav-item">
               <a href="add_service.php" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
+                <i class="fa fa-plus nav-icon"></i>
                 <p>Add Services</p>
               </a>
             </li>
             <li class="nav-item">
               <a href="manage_service.php" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
+                <i class="fa fa-pencil-square-o nav-icon"></i>
                 <p>Manage Services</p>
               </a>
             </li>
@@ -75,26 +74,26 @@
         </li>
         <li class="nav-item has-treeview">
           <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-chart-pie"></i>
+            <i class="nav-icon fas fa fa-users"></i>
             <p>
-              Manage Customers
+              Call-In Clients
               <i class="right fas fa-angle-left"></i>
             </p>
           </a>
           <ul class="nav nav-treeview">
            <li class="nav-item">
             <a href="add_customer.php" class="nav-link">
-              <i class="nav-icon far fa-calendar-alt"></i>
+              <i class="fa fa-plus nav-icon" aria-hidden="true"></i>
               <p>
-                Add Customer
+                Add Client
               </p>
             </a>
           </li>
           <li class="nav-item">
             <a href="customer_list.php" class="nav-link">
-              <i class="nav-icon far fa-image"></i>
+            <i class="fa fa-server nav-icon" aria-hidden="true"></i>
               <p>
-                Customer list
+                View List
               </p>
             </a>
           </li>
@@ -102,60 +101,62 @@
       </li>
       <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
-          <i class="nav-icon fas fa-book"></i>
+          <i class="nav-icon fa fa-calendar"></i>
           <p>
             Appointments
             <i class="fas fa-angle-left right"></i>
           </p>
         </a>
         <ul class="nav nav-treeview">
-          <li class="nav-item">
-            <a href="all_appointments.php" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>All Appointments</p>
-            </a>
-          </li>
-          <li class="nav-item">
+        <li class="nav-item">
             <a href="new_appointment.php" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>New Appointments</p>
+              <i class="fa fa-clock-o nav-icon"></i>
+              <p>New</p>
             </a>
           </li>
+          
           <li class="nav-item">
             <a href="accepted_appointment.php" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Accepted Appointments</p>
+              <i class="fa fa-calendar-check-o nav-icon"></i>
+              <p>Scheduled</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="all_appointments.php" class="nav-link">
+              <i class="far fa-history nav-icon"></i>
+              <p>History</p>
             </a>
           </li>
           <li class="nav-item">
             <a href="rejected_appointment.php" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Declined Appointments</p>
+              <i class="fa fa-calendar-times-o nav-icon"></i>
+              <p>Declined</p>
             </a>
           </li>
         </ul>
       </li>
       <li class="nav-item has-treeview">
         <a href="invoices.php" class="nav-link">
-          <i class="nav-icon fas fa-edit"></i>
+          <i class="nav-icon fa fa-credit-card"></i>
           <p>
-            Invoice
+            View Invoices
           </p>
         </a>
       </li>
+      <li class="nav-header">FIND</li>
       <li class="nav-item has-treeview">
         <a href="search_appointment.php" class="nav-link">
-          <i class="nav-icon fas fa-edit"></i>
+          <i class="nav-icon fa fa-search"></i>
           <p>
-            Search Appointments
+            Appointments
           </p>
         </a>
       </li>
       <li class="nav-item has-treeview">
         <a href="search_invoice.php" class="nav-link">
-          <i class="nav-icon fas fa-edit"></i>
+          <i class="nav-icon fa fa-search"></i>
           <p>
-            Search Invoice
+            Invoice
           </p>
         </a>
       </li>
@@ -166,10 +167,10 @@
          <i class="far fa-user nav-icon"></i>
          <p>
           Register User
-        </p>
-      </a>
-    </li><!-- /.user menu -->
-  </ul>
+         </p>
+        </a>
+      </li><!-- /.user menu -->
+    </ul>
 </nav>
 <!-- /.sidebar-menu -->
 </div>

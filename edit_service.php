@@ -1,54 +1,82 @@
 <?php
 
-session_start();
-error_reporting(0);
-include('includes/dbconnection.php');
+include_once 'auth/session.php';
+include_once 'auth/db.php';
+
+if(isset($_SESSION['permission'])){
+  if (($_SESSION['permission'] != "Superuser") && ($_SESSION['permission'] != "Admin")) {
+  header('location: dashboard.php?error=denied');
+  exit();
+  }
+  };
+
 if(isset($_POST['submit']))
 {
   $sername=$_POST['sername'];
-  $cost=$_POST['cost'];
+  $price=$_POST['price'];
+  $description=$_POST['description'];
+  $duration=$_POST['duration'];
 
   $eid=$_SESSION['edid'];
-  $query=mysqli_query($con, "update  tblservices set ServiceName='$sername',Cost='$cost' where ID='$eid' ");
+  $query=mysqli_query($con, "update  tblservices set name='$sername',description='$description',price='$price',duration='$duration'  where ID='$eid';");
   if ($query) {
     //$msg="Service has been Updated.";
-    echo '<script>alert("Service has been updated")</script>';
+    echo "<script type='text/javascript'>
+			Swal.fire({
+				icon: 'success',
+				title: 'Success',
+				text: 'Service Updated',
+				timer: 2000
+			  });
+			</script>";
   }
   else
   {
-    echo '<script>alert("Something Went Wrong. Please try again")</script>';
+    echo "<script type='text/javascript'>
+			Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: 'Something went wrong',
+				timer: 2000
+			  });
+			</script>";
     //$msg="Something Went Wrong. Please try again";
   }
 }
 ?>
-<h4 class="card-title">Update Service Form </h4>
+<h4 class="card-title">Update Service:</h4>
 <form role="form" method="post">
-  <p style="font-size:16px; color:red" align="center"> <?php if($msg){
-    echo $msg;
-  }  ?> </p>
   <?php
   $eid=$_POST['edit_id'];
-  $ret=mysqli_query($con,"select * from  tblservices where ID='$eid'");
+  $ret=mysqli_query($con,"select * from  tblservices where id='$eid'");
   $cnt=1;
   while ($row=mysqli_fetch_array($ret))
   {
-    $_SESSION['edid']=$row['ID'];
+    $_SESSION['edid']=$row['id'];
     ?> 
     <div class="card-body">
       <div class="form-group">
-        <label for="exampleInputEmail1">Service Name</label>
-        <input type="text" class="form-control" id="sername" name="sername" placeholder="Service Name" value="<?php  echo $row['ServiceName'];?>" required="true">
+        
+        <input type="text" class="form-control" id="sername" name="sername" placeholder="Service Name" value="<?php  echo $row['name'];?>" required>
       </div>
       <div class="form-group">
-        <label for="exampleInputPassword1">Cost</label>
-        <input type="text" id="cost" name="cost" class="form-control" placeholder="Cost" value="<?php  echo $row['Cost'];?>" required="true">
+        <label for="description">Description</label>
+        <input type="text" class="form-control" id="description" name="description" placeholder="Service Description" value="<?php  echo $row['description'];?>" required>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">Price</label>
+        <input type="text" id="cost" name="price" class="form-control" placeholder="Price" value="<?php  echo $row['price'];?>" required="true">
+      </div>
+      <div class="form-group">
+        <label for="duration">Duration</label>
+        <input type="text" id="duration" name="duration" class="form-control" placeholder="Duration" value="<?php  echo $row['duration'];?>" required="true">
       </div>
       <?php 
     } ?>
     <div class="card-footer">
-      <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" name="submit" class="editBtn">Submit</button>
       <span style="float: right;">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="deleteBtn" data-dismiss="modal">Cancel</button>
       </span>
     </div>
   </div>

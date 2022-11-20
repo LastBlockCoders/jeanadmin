@@ -136,4 +136,19 @@ function signout(){
     header("location: index.php");
 }
 
-?>
+#fix
+function GetServiceName($con, $id){
+    $serv= mysqli_query($con,"SELECT ServiceName FROM  tblservices WHERE id = $id;");
+    if($serv){
+        while ($row = mysqli_fetch_row($serv)) {
+           return $row[0];
+          }
+          mysqli_free_result($serv);
+          mysqli_close($con);
+        }
+    else{
+        header("location: dashboard.php?error=somethingwentwrong");
+        exit();
+    }
+
+}

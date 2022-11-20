@@ -9,7 +9,7 @@
           <div class="login-logo">
             <p><b>
             </b></p><!-- Link can also be removed -->
-            <center><img src="company/LOGO.png" width="150" height="130" class="user-image" alt="User Image"/></center>
+            <center><img src="company/LOGO.png" width="150" height="140" class="user-image" alt="User Image"/></center>
           </div>
           <p class="login-box-msg"><b> <h4> <center> Welcome </center></h4> </b></p>
 
