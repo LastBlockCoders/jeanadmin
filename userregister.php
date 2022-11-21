@@ -1,9 +1,12 @@
 <?php 
-session_start();
-error_reporting(0);
+
+include_once 'auth/session.php';
+include_once 'auth/db.php';
+
 include('includes/dbconnection.php');
-if (strlen($_SESSION['sid']==0)) {
-  header('location:logout.php');
+if (!isset($_SESSION['sid']) || ($_SESSION['permission'] != "Superuser")) {
+  header('location: logout.php');
+  exit();
 } 
 if(isset($_GET['delid']))
 {
@@ -12,8 +15,15 @@ if(isset($_GET['delid']))
   $query=$dbh->prepare($sql);
   $query->bindParam(':rid',$rid,PDO::PARAM_STR);
   $query->execute();
-  echo "<script>alert(' blocked successfuly');</script>"; 
-  echo "<script>window.location.href = 'userregister.php'</script>";
+  echo "<script type='text/javascript'>
+  Swal.fire({
+    icon: 'success',
+    title: 'Blocked Successfully!',
+    showConfirmButton: false,
+    timer: 2000
+    });
+    setTimeout(function(){window.open('userregister.php','_self')},1500);
+  </script>";
 }
 ?>
 <?php @include("includes/head.php"); ?>
@@ -25,9 +35,9 @@ if(isset($_GET['delid']))
     <!-- Main Sidebar Container -->
     <?php @include("includes/sidebar.php"); ?>
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+    <div class="content-wrapper" style="font-size: small">
       <!-- Content Header (Page header) -->
-      <section class="content-header">
+      <section class="content-header" style="font-size: small">
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
@@ -128,9 +138,9 @@ if(isset($_GET['delid']))
                 <div class="card-header">
                   <h3 class="card-title">Register New user</h3>
                   <div class="card-tools">
-                   <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete" ></i> See blocked users
+                   <button type="button" class="btn btn-sm deleteBtn" data-toggle="modal" data-target="#delete" ></i> See blocked users
                    </button>
-                   <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#deposit" ><i class="fas fa-plus" ></i> Register New User
+                   <button type="button" class="btn btn-sm editBtn" data-toggle="modal" data-target="#deposit" ><i class="fas fa-plus" ></i> Register New User
                    </button>
                  </div>
                </div>

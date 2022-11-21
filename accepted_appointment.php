@@ -21,13 +21,13 @@ if (!isset($_SESSION['sid'])) {
     <?php @include("includes/sidebar.php"); ?>
 
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+    <div class="content-wrapper" style="font-size: smaller">
       <!-- Content Header (Page header) -->
-      <section class="content-header">
+      <section class="content-header" style="font-size: smaller">
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1>Appointments</h1>
+              <h1 style="font-size: x-larger">Appointments</h1>
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
@@ -73,7 +73,7 @@ if (!isset($_SESSION['sid'])) {
                <?php
                include_once 'functions/functions.php';
                ?>
-               <div class="card-body">
+               <div class="card-body" style="font-size: small">
                 <table id="example1" class="table table-hover">
                   <thead> 
                     <tr> 

@@ -19,13 +19,13 @@ include('includes/dbconnection.php');
     <?php @include("includes/sidebar.php"); ?>
 
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+    <div class="content-wrapper" style="font-size: smaller">
       <!-- Content Header (Page header) -->
-      <section class="content-header">
+      <section class="content-header" style="font-size: smaller">
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1>Appointments</h1>
+              <h1 style="font-size: x-larger">Declined Requests</h1>
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
@@ -44,14 +44,14 @@ include('includes/dbconnection.php');
             <div class="col-12">
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title">DataTable with Rejected Appointment</h3>
+                  <h3 class="card-title">All client requests that were declined</h3>
                 </div>
                 <!-- /.card-header -->
                 <div id="editData" class="modal fade">
                   <div class="modal-dialog ">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h5 class="modal-title">Rejected Appointment</h5>
+                        <h5 class="modal-title">Declined Request</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
@@ -68,37 +68,40 @@ include('includes/dbconnection.php');
                  <!-- /.modal -->
                </div>
                <!--   end modal -->
-               <div class="card-body">
+               <div class="card-body" style="font-size: small">
                 <table id="example1" class="table table-bordered table-hover">
                   <thead> 
+              
                     <tr> 
-                      <th>#</th> 
-                      <th> Appointment Number</th> 
-                      <th>Name</th><th>Mobile Number</th> 
-                      <th>Appointment Date</th>
-                      <th>Appointment Time</th>
-                      <th>Action</th> 
+                    <th>Service</th> 
+                    <th>Client</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Location</th>
+                    <th>Total</th>
                     </tr> 
+                  
                   </thead> 
                   <tbody>
                     <?php
-                    $ret=mysqli_query($con,"select *from  tblappointment where Status='2'");
+                    $ret=mysqli_query($con,"select *from  tblappointment where Status='0'");
                     $cnt=1;
                     while ($row=mysqli_fetch_array($ret)) {
 
                       ?>
 
                       <tr> 
-                        <th scope="row"><?php echo $cnt;?></th> 
-                        <td><?php  echo $row['AptNumber'];?></td> 
+                        <td><?php  echo GetServiceName($con,$row['Services']);?></td>
                         <td><?php  echo $row['Name'];?></td>
-                        <td><?php  echo $row['PhoneNumber'];?></td>
                         <td><?php  echo $row['AptDate'];?></td> 
-                        <td><?php  echo $row['AptTime'];?></td> 
-                        <td><a href="#" class=" edit_data" id="<?php echo  $row['ID']; ?>" title="click for edit">View</a></td> 
-                      </tr>   
+                        <td><?php  echo $row['AptTime'].' - '.$row['end_time'];?></td>
+                        <td><?php  echo $row['location'];?></td>
+                        <td><?php  echo $row['total'];?></td> 
+                        <td>
+                          <button class="viewBtn"><a href="#" class=" edit_data" id="<?php echo  $row['ID']; ?>" title="click for edit">View</a></button></td> 
+                      </tr>  
                       <?php 
-                      $cnt=$cnt+1;
+                   
                     }?>
                   </tbody>
                 </table>

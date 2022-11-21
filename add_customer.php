@@ -16,10 +16,25 @@ if (!isset($_SESSION['sid'])) {
     $details=$_POST['details'];
     $query=mysqli_query($con, "insert into  tblcustomers(Name,Email,MobileNumber,Gender,Details) value('$name','$email','$mobilenum','$details')");
     if ($query) {
-      echo "<script>alert('Customer has been added.');</script>"; 
-      echo "<script>window.location.href = 'add_customer.php'</script>"; 
+      echo "<script type='text/javascript'>
+      Swal.fire({
+        icon: 'success',
+        title: 'Blocked Successfully!',
+        showConfirmButton: false,
+        timer: 2000
+        });
+        setTimeout(function(){window.open('add_customer.php','_self')},1500);
+      </script>";
     } else {
-      echo "<script>alert('Something Went Wrong. Please try again.');</script>";    
+      echo "<script type='text/javascript'>
+			Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: 'Something went wrong',
+        showConfirmButton: false,
+				timer: 2000
+			  });
+			</script>";    
     } 
   }
   ?>

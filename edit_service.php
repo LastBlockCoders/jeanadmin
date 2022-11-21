@@ -26,6 +26,7 @@ if(isset($_POST['submit']))
 				icon: 'success',
 				title: 'Success',
 				text: 'Service Updated',
+        showConfirmButton: false,
 				timer: 2000
 			  });
 			</script>";
@@ -37,6 +38,7 @@ if(isset($_POST['submit']))
 				icon: 'error',
 				title: 'Oops...',
 				text: 'Something went wrong',
+        showConfirmButton: false,
 				timer: 2000
 			  });
 			</script>";

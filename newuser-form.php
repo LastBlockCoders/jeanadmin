@@ -8,7 +8,15 @@ if(isset($_POST['submit']))
   $password2=($_POST['password1']); 
 
   if($password1 != $password2) {
-    echo "<script>alert('Password and Confirm Password Field do not match  !!');</script>";
+    echo "<script type='text/javascript'>
+    Swal.fire({
+      icon: 'error',
+      title: 'error.',
+      text: 'Passwords don't match',
+      showConfirmButton: false,
+      timer: 2000
+      });
+    </script>";
   }else
   {
     $name=$_POST['name'];
@@ -35,13 +43,28 @@ if(isset($_POST['submit']))
     $lastInsertId = $dbh->lastInsertId();
     if($lastInsertId)
     {
-      echo "<script>alert('Registered successfuly');</script>";
-       echo "<script>window.location.href ='userregister.php'</script>";
+      echo "<script type='text/javascript'>
+      Swal.fire({
+        icon: 'success',
+        title: 'Added Successfully!',
+        showConfirmButton: false,
+        timer: 2000
+        });
+        setTimeout(function(){window.open('userregister.php','_self')},1500);
+      </script>";
       
     }
     else 
     {
-      echo "<script>alert('Something went wrong. Please try again');</script>";
+      echo "<script type='text/javascript'>
+			Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: 'Something went wrong',
+        showConfirmButton: false,
+				timer: 2000
+			  });
+			</script>";
     }
   }
 }
@@ -105,6 +128,6 @@ if(isset($_POST['submit']))
   <!-- /.card-body -->
   <div class="modal-footer text-right">
     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-    <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" name="submit" class="btn editBtn">Submit</button>
   </div>
 </form>

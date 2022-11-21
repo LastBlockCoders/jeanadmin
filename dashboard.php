@@ -1,6 +1,6 @@
 <?php
 
-session_start();
+include_once 'auth/session.php';
 include('includes/dbconnection.php');
 if (!isset($_SESSION['sid'])) {
   header('location: logout.php');

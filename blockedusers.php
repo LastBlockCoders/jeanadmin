@@ -1,7 +1,7 @@
 
 <?php 
-session_start();
-error_reporting(0);
+include_once 'auth/session.php';
+include_once 'auth/db.php';
 include('includes/dbconnection.php');
 if(isset($_GET['blockid']))
 {
@@ -10,8 +10,15 @@ if(isset($_GET['blockid']))
   $query=$dbh->prepare($sql);
   $query->bindParam(':blockedid',$blockedid,PDO::PARAM_STR);
   $query->execute();
-  echo "<script>alert('restored successfuly');</script>"; 
-  echo "<script>window.location.href = 'userregister.php'</script>";
+  echo "<script type='text/javascript'>
+  Swal.fire({
+    icon: 'success',
+    title: 'Restored Successfully!',
+    showConfirmButton: false,
+    timer: 2000
+    });
+    setTimeout(function(){window.open('userregister.php','_self')},1500);
+  </script>";
 }
 ?>
 <div class="card-body">
@@ -39,7 +46,7 @@ if(isset($_GET['blockid']))
       {?>
        <tr>
          <td><a href="#"><?php  echo htmlentities($row->name);?> <?php  echo htmlentities($row->lastname);?></a></td>
-         <td class="text-left">0<?php  echo htmlentities($row->mobile);?></td>
+         <td class="text-left"><?php  echo htmlentities($row->mobile);?></td>
          <td class="text-left" ><?php  echo htmlentities($row->email);?></td>
          <td class="text-left"><?php  echo htmlentities($row->permission);?></td>
          <td class="text-left">

@@ -4,7 +4,7 @@ include_once 'auth/session.php';
 include_once 'auth/db.php';
 include_once 'functions/functions.php';
 ?>
-<div class="card-body">
+<div class="card-body" style="font-size: smaller">
   <div class="table-responsive bs-example widget-shadow">
     <?php
     $cid=$_POST['edit_id'];

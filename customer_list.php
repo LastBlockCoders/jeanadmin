@@ -20,18 +20,18 @@ if (!isset($_SESSION['sid'])) {
     <?php @include("includes/sidebar.php"); ?>
 
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+    <div class="content-wrapper" style="font-size: smaller">
       <!-- Content Header (Page header) -->
-      <section class="content-header">
+      <section class="content-header" style="font-size: smaller">
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1>Customer list</h1>
+              <h1 style="font-size: x-larger">Client List</h1>
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                <li class="breadcrumb-item active">Customer List</li>
+                <li class="breadcrumb-item active">Client List</li>
               </ol>
             </div>
           </div>
@@ -45,14 +45,14 @@ if (!isset($_SESSION['sid'])) {
             <div class="col-12">
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title">Customer List</h3>
+                  <h3 class="card-title">Client List</h3>
                 </div>
                 <!-- /.card-header -->
                 <div id="editData" class="modal fade">
                   <div class="modal-dialog ">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h5 class="modal-title">Edit Customer Details</h5>
+                        <h5 class="modal-title">Edit Client Details</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>

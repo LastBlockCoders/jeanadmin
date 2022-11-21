@@ -19,9 +19,9 @@ include 'includes/dbconnection.php';
     <?php include("includes/sidebar.php"); ?>
 
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+    <div class="content-wrapper" style="font-size: smaller">
       <!-- Content Header (Page header) -->
-      <section class="content-header">
+      <section class="content-header" style="font-size: small">
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">

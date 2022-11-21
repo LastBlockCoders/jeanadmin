@@ -17,8 +17,9 @@ if(isset($_POST['save'])){
    echo "<script type='text/javascript'>
    Swal.fire({
      icon: 'success',
-     title: 'Invoice genered',
+     title: 'Invoice generated',
      text: '$invoiceid',
+     showConfirmButton: false,
      timer: 3000
      });
      setTimeout(function(){window.open('invoice.php','_self')},1000);</script>";

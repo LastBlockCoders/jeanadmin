@@ -27,12 +27,12 @@ if (!isset($_SESSION['sid'])) {
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6" >
-              <h1 style="font-size: x-larger">Appointments</h1>
+              <h1 style="font-size: x-larger">Pending Requests</h1>
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                <li class="breadcrumb-item active">New Appointments</li>
+                <li class="breadcrumb-item active">New Requests</li>
               </ol>
             </div>
           </div>
@@ -46,7 +46,7 @@ if (!isset($_SESSION['sid'])) {
             <div class="col-12">
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title">New Requests</h3>
+                  <h3 class="card-title">New requests sent in by clients</h3>
                 </div>
                 <!-- /.card-header -->
                 <div id="editData" class="modal fade">

@@ -1,5 +1,5 @@
 
-  <?php @include("includes/head.php"); ?>
+  <?php @include "includes/head.php"; ?>
   <body class="hold-transition login-page">
     <!-- Logo box -->
     <div class="login-box">  

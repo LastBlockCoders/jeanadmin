@@ -1,7 +1,8 @@
 <?php 
-session_start();
-error_reporting(0);
+include_once 'auth/session.php';
+include_once 'auth/db.php';
 include('includes/dbconnection.php');
+
 if (strlen($_SESSION['sid']==0)) {
   header('location:logout.php');
 } else{
@@ -16,10 +17,25 @@ if (strlen($_SESSION['sid']==0)) {
     $query->bindParam(':eid',$eid,PDO::PARAM_STR);
     $query->execute();
     if ($query->execute()) {
-      echo '<script>alert("updated successfuly")</script>';
-      echo "<script>window.location.href ='update_userimage.php'</script>";
+      echo "<script type='text/javascript'>
+      Swal.fire({
+        icon: 'success',
+        title: 'Updated Successfully!',
+        showConfirmButton: false,
+        timer: 2000
+        });
+        setTimeout(function(){window.open('ipdate_userimage.php','_self')},1500);
+      </script>";
     }else{
-      echo '<script>alert("something went wrong, please try again later")</script>';
+      echo "<script type='text/javascript'>
+			Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: 'Something went wrong',
+        showConfirmButton: false,
+				timer: 2000
+			  });
+			</script>";
     }
 
   }
@@ -36,7 +52,7 @@ if (strlen($_SESSION['sid']==0)) {
      <!-- /.sidebar and menu -->
 
      <!-- Content Wrapper. Contains page content -->
-     <div class="content-wrapper">
+     <div class="content-wrapper" style="font-size: small">
       <br>
       <div class="col-lg-12">
         <div class="card mb-4">
@@ -93,7 +109,7 @@ if (strlen($_SESSION['sid']==0)) {
               } ?>
               <div class="form-group row">
                 <div class="col-12">
-                  <button type="submit" class="btn btn-primary " name="submit">
+                  <button type="submit" class="btn editBtn" name="submit">
                     <i class="fa fa-plus "></i> Update
                   </button>
                 </div>

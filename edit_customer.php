@@ -1,6 +1,6 @@
 <?php
-session_start();
-error_reporting(0);
+include_once 'auth/session.php';
+include_once 'auth/db.php';
 include('includes/dbconnection.php');
 if (strlen($_SESSION['sid']==0)) {
   header('location:logout.php');
@@ -10,28 +10,35 @@ if(isset($_POST['submit']))
   $name=$_POST['name'];
   $email=$_POST['email'];
   $mobilenum=$_POST['mobilenum'];
-  $gender=$_POST['gender'];
   $details=$_POST['details'];
   $cid=$_SESSION['edid'];
-  $query=mysqli_query($con, "update  tblcustomers set Name='$name',Email='$email',MobileNumber='$mobilenum',Gender='$gender',Details='$details' where ID='$cid' ");
+  $query=mysqli_query($con, "update  tblcustomers set Name='$name',Email='$email',MobileNumber='$mobilenum',Details='$details' where ID='$cid' ");
   if ($query) {
-    echo '<script>alert("Customer Detail has been Updated.")</script>';
-    echo "<script>window.location.href = 'customer_list.php'</script>"; 
+    echo "<script type='text/javascript'>
+    Swal.fire({
+      icon: 'success',
+      title: 'Details Updated Successfully!',
+      showConfirmButton: false,
+      timer: 2000
+      });
+      setTimeout(function(){window.open('customer_list.php','_self')},1500);
+    </script>";
   }
   else
   {
-    echo '<script>alert("Something Went Wrong. Please try again")</script>';
+    echo "<script type='text/javascript'>
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Something went wrong, please try again',
+      timer: 2000
+      });
+    </script>";
   }
 }
 ?>
 <h4 class="card-title">Update Customer Details </h4>
 <form method="post">
-  <p style="font-size:16px; color:red" align="center">
-    <?php 
-    if($msg){
-      echo $msg;
-    }  ?>
-  </p>
   <?php
   $eid=$_POST['edit_id'];
   $ret=mysqli_query($con,"select * from  tblcustomers where ID='$eid'");
@@ -54,26 +61,7 @@ if(isset($_POST['submit']))
         <input type="text" id="mobilenum" name="mobilenum" class="form-control"  value="<?php  echo $row['MobileNumber'];?>" required="true"> 
       </div>
       <div class="form-group"> 
-        <label for="exampleInputPassword1">Gender</label> 
-        <?php 
-        if($row['Gender']=="Male")
-        {
-          ?>
-          <input type="radio" id="gender" name="gender" value="Male" checked="true">Male
-          <input type="radio" name="gender" value="Female">Female
-          <?php
-        } ?>
-        <?php 
-        if($row['Gender']=="Female")
-        {
-          ?>
-          <input type="radio" id="gender" name="gender" value="Male" >Male
-          <input type="radio" name="gender" value="Female" checked="true">Female
-          <?php 
-        }?>
-      </div>
-      <div class="form-group"> 
-        <label for="exampleInputEmail1">Details</label> 
+        <label for="exampleInputEmail1">Address</label> 
         <textarea type="text" class="form-control" id="details" name="details" placeholder="Details" required="true" rows="4" cols="4"><?php  echo $row['Details'];?></textarea> 
       </div>
       <div class="form-group"> 
