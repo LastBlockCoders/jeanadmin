@@ -7,6 +7,7 @@ if (!isset($_SESSION['sid'])) {
   exit();
 } 
 ?>
+
 <!DOCTYPE html>
 <html>
 <?php @include("includes/head.php"); ?>
@@ -72,7 +73,7 @@ if (!isset($_SESSION['sid'])) {
                <?php
                include_once 'functions/functions.php';
                ?>
-               <div class="card-body" style="font-size: smaller">
+               <div class="card-body" style="font-size: small">
                 <table id="example1" class="table table-hover">
                   <thead> 
                     <tr> 
@@ -116,6 +117,34 @@ if (!isset($_SESSION['sid'])) {
       </div>
       <!-- /.container-fluid -->
     </section>
+    <?php
+
+  if(isset($_GET["error"])){
+    if ($_GET["error"] == "none") {
+      echo "<script type='text/javascript'>
+			Swal.fire({
+				icon: 'success',
+				title: 'Success',
+				text: 'New Service Added',
+        showConfirmButton: false,
+				timer: 2000
+			  });
+			</script>";
+    }
+    else
+    {
+      echo "<script type='text/javascript'>
+			Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: 'Something went wrong',
+        showConfirmButton: false,
+				timer: 2000
+			  });
+			</script>";    
+    }
+  }
+?>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->

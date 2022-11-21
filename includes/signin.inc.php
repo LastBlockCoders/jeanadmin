@@ -1,6 +1,6 @@
 <?php
 session_start();
-error_reporting(0);
+
 include_once 'dbconnection.php';
 include_once '../functions/functions.php';
 

@@ -1,9 +1,9 @@
 <?php
 
-session_start();
-error_reporting(0);
+include_once 'auth/session.php';
+include_once 'auth/db.php';
 include('includes/dbconnection.php');
-if (isset($_SESSION['sid'])) {
+if (!isset($_SESSION['sid'])) {
   header('location: logout.php');
   exit();
 } 
@@ -27,12 +27,12 @@ if (isset($_SESSION['sid'])) {
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1>Appointments</h1>
+              <h1>Request History</h1>
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                <li class="breadcrumb-item active">All Appointments</li>
+                <li class="breadcrumb-item active">Request History</li>
               </ol>
             </div>
           </div>
@@ -46,14 +46,14 @@ if (isset($_SESSION['sid'])) {
             <div class="col-12">
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title">DataTable with All Appointment</h3>
+                  <h3 class="card-title">All requests to have been made are found here</h3>
                 </div>
                 <!-- /.card-header -->
                 <div id="editData" class="modal fade">
                   <div class="modal-dialog  ">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h5 class="modal-title">View Appointment</h5>
+                        <h5 class="modal-title">View Request</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
@@ -70,16 +70,21 @@ if (isset($_SESSION['sid'])) {
                   <!-- /.modal -->
                 </div>
                 <!--   end modal -->
+                <?php
+               include_once 'functions/functions.php';
+               ?>
                 <div class="card-body">
                   <table id="example1" class="table table-bordered table-hover">
                     <thead> 
-                      <tr> 
-                        <th>#</th> 
-                        <th> Appointment Number</th> 
-                        <th>Name</th><th>Mobile Number</th> 
-                        <th>Appointment Date</th>
-                        <th>Appointment Time</th>
-                        <th>Action</th> 
+                      <tr>
+                        <th></th>
+                      <th>Service</th> 
+                    <th>Client</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Location</th>
+                    <th>Total</th>
+                    <th>
                       </tr> 
                     </thead> 
                     <tbody>
@@ -90,15 +95,17 @@ if (isset($_SESSION['sid'])) {
 
                         ?>
 
-                        <tr> 
-                          <th scope="row"><?php echo $cnt;?></th> 
-                          <td><?php  echo $row['AptNumber'];?></td> 
-                          <td><?php  echo $row['Name'];?></td>
-                          <td><?php  echo $row['PhoneNumber'];?></td>
-                          <td><?php  echo $row['AptDate'];?></td> 
-                          <td><?php  echo $row['AptTime'];?></td> 
-                          <td><a href="#" class=" edit_data" id="<?php echo  $row['ID']; ?>" title="click for edit">View</a></td> 
-                        </tr>   
+                          <tr> 
+                        <td><?php echo $cnt;?></td>
+                        <td><?php  echo GetServiceName($con,$row['Services']);?></td>
+                        <td><?php  echo $row['Name'];?></td>
+                        <td><?php  echo $row['AptDate'];?></td> 
+                        <td><?php  echo $row['AptTime'].' - '.$row['end_time'];?></td>
+                        <td><?php  echo $row['location'];?></td>
+                        <td><?php  echo 'R '.$row['total'];?></td> 
+                        <td>
+                          <button class="viewBtn"><a href="#" class=" edit_data" id="<?php echo  $row['ID']; ?>" title="click for edit">View</a></button></td> 
+                      </tr>    
                         <?php 
                         $cnt=$cnt+1;
                       }?>

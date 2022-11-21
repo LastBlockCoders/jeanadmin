@@ -1,9 +1,9 @@
 <?php
 
-session_start();
-error_reporting(0);
+include_once 'auth/session.php';
+include_once 'auth/db.php';
 include('includes/dbconnection.php');
-if (isset($_SESSION['sid'])) {
+if (!isset($_SESSION['sid'])) {
   header('location: logout.php');
   exit();
 } 
@@ -32,7 +32,7 @@ if (isset($_SESSION['sid'])) {
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                <li class="breadcrumb-item active">Accepted Appointments</li>
+                <li class="breadcrumb-item active">Scheduled Appointments</li>
               </ol>
             </div>
           </div>
@@ -46,14 +46,14 @@ if (isset($_SESSION['sid'])) {
             <div class="col-12">
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title">DataTable with Accepted Appointment</h3>
+                  <h3 class="card-title">Scheduled Appointments</h3>
                 </div>
                 <!-- /.card-header -->
                 <div id="editData" class="modal fade">
                   <div class="modal-dialog ">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h5 class="modal-title">Accepted Appointment</h5>
+                        <h5 class="modal-title">Scheduled appointments</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
@@ -70,38 +70,41 @@ if (isset($_SESSION['sid'])) {
                  <!-- /.modal -->
                </div>
                <!--   end modal -->
+               <?php
+               include_once 'functions/functions.php';
+               ?>
                <div class="card-body">
-                <table id="example1" class="table table-bordered table-hover">
+                <table id="example1" class="table table-hover">
                   <thead> 
                     <tr> 
-                      <th>#</th> 
-                      <th> Appointment Number</th> 
-                      <th>Name</th><th>Mobile Number</th> 
-                      <th>Appointment Date</th>
-                      <th>Appointment Time</th>
-                      <th>Action</th> 
+                    <th>Service</th> 
+                    <th>Client</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Location</th>
+                    <th>Total</th>
                     </tr> 
                   </thead> 
                   <tbody>
                     <?php
                     $ret=mysqli_query($con,"select *from  tblappointment where Status='1'");
-                    $cnt=1;
+             
                     while ($row=mysqli_fetch_array($ret)) {
 
                       ?>
 
                       <tr> 
-                        <th scope="row"><?php echo $cnt;?></th> 
-                        <td><?php  echo $row['AptNumber'];?></td> 
+                        <td><?php  echo GetServiceName($con,$row['Services']);?></td>
                         <td><?php  echo $row['Name'];?></td>
-                        <td><?php  echo $row['PhoneNumber'];?></td>
                         <td><?php  echo $row['AptDate'];?></td> 
-                        <td><?php  echo $row['AptTime'];?></td> 
+                        <td><?php  echo $row['AptTime'].' - '.$row['end_time'];?></td>
+                        <td><?php  echo $row['location'];?></td>
+                        <td><?php  echo $row['total'];?></td> 
                         <td>
-                          <a href="#" class=" edit_data" id="<?php echo  $row['ID']; ?>" title="click for edit">View</a></td> 
+                          <button class="viewBtn"><a href="#" class=" edit_data" id="<?php echo  $row['ID']; ?>" title="click for edit">View</a></button></td> 
                       </tr>   
                       <?php 
-                      $cnt=$cnt+1;
+                   
                     }?>
                   </tbody>
                 </table>
