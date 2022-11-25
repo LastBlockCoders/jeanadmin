@@ -1,10 +1,11 @@
 <?php
 include_once 'auth/session.php';
-include 'includes/dbconnection.php';
+include_once 'includes/dbconnection.php';
 
-// if (strlen($_SESSION['bpmsaid']==0)) {
-//   header('location:logout.php');
-// } 
+if (!isset($_SESSION['sid'])) {
+header('location:logout.php');
+exit();
+} 
 ?>
 <!DOCTYPE html>
 <html>

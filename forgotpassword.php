@@ -1,6 +1,7 @@
 <?php
-session_start();
-error_reporting(0);
+include_once 'auth/session.php';
+include_once 'auth/db.php';
+
 include('includes/dbconnection.php');
 if(isset($_POST['login']))
 {
@@ -22,6 +23,7 @@ if(isset($_POST['login']))
     $results = $query -> fetchAll(PDO::FETCH_OBJ);
     if($query -> rowCount() > 0)
     {
+      #remind Jean to call customers.
       $con="update tblusers set password=:newpassword where email=:email and mobile=:mobile";
       $chngpwd1 = $dbh->prepare($con);
       $chngpwd1-> bindParam(':email', $email, PDO::PARAM_STR);
@@ -49,7 +51,7 @@ if(isset($_POST['login']))
       <div class="card-body login-card-body">
 
         <div class="login-logo">
-          <center><img src="company/salon.png" width="150" height="130" class="user-image" alt="User Image"/></center>
+          <center><img src="company/LOGO.png" width="150" height="130" class="user-image" alt="User Image"/></center>
         </div>
         <p class="login-box-msg"><strong style="color: blue">Don't worry, we'have got you back</strong></p>
         <form action="" method="post">
@@ -87,13 +89,13 @@ if(isset($_POST['login']))
           </div>
           <div class="row">
             <div class="col-4">
-              <button type="submit" name="login" class="btn btn-primary btn-block" data-toggle="modal" data-taget="#modal-default">Reset</button>
+              <button type="submit" name="login" class="ResBtn" data-toggle="modal" data-taget="#modal-default">Reset</button>
             </div>
             <!-- /.col -->
           </div>
         </form>
         <p class="mb-1" >
-          <a href="index.php">login</a>
+          <button class="editBtn"><a href="index.php">Login</a></button>
         </p>
       </div>
       <!-- /.login-card-body -->

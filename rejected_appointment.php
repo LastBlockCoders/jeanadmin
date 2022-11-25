@@ -1,6 +1,5 @@
 <?php
 session_start();
-error_reporting(0);
 include('includes/dbconnection.php');
 // if (strlen($_SESSION['bpmsaid']==0)) {
 //   header('location:logout.php');
@@ -68,8 +67,9 @@ include('includes/dbconnection.php');
                  <!-- /.modal -->
                </div>
                <!--   end modal -->
+               <?php include_once 'functions/functions.php'; ?>
                <div class="card-body" style="font-size: small">
-                <table id="example1" class="table table-bordered table-hover">
+                <table id="example1" class="table table-hover">
                   <thead> 
               
                     <tr> 
@@ -84,7 +84,7 @@ include('includes/dbconnection.php');
                   </thead> 
                   <tbody>
                     <?php
-                    $ret=mysqli_query($con,"select *from  tblappointment where Status='0'");
+                    $ret=mysqli_query($con,"select * from  tblappointment where Status='0'");
                     $cnt=1;
                     while ($row=mysqli_fetch_array($ret)) {
 

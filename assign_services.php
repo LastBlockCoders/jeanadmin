@@ -11,28 +11,32 @@ if(isset($_POST['save'])){
   $uid=$_SESSION['gid'];
   $invoiceid=mt_rand(100000000, 999999999);
   $sid=$_POST['sids'];
+  $reci=$_POST['reci'];
   for($i=0;$i<count($sid);$i++){
    $svid=$sid[$i];
-   $ret=mysqli_query($con,"insert into tblinvoice(Userid,ServiceId,BillingId) values('$uid','$svid','$invoiceid');");
+   for($j=0;$j<count($reci);$j++){
+    $rid = $reci[$j];
+    if($rid>0){
+   $ret=mysqli_query($con,"insert into tblinvoice(Userid,ServiceId,recipients,BillingId) values('$uid','$svid','$rid','$invoiceid');");
    echo "<script type='text/javascript'>
    Swal.fire({
      icon: 'success',
-     title: 'Invoice generated',
+     title: 'Invoice Generated',
      text: '$invoiceid',
      showConfirmButton: false,
      timer: 3000
      });
-     setTimeout(function(){window.open('invoice.php','_self')},1000);</script>";
- }
+     setTimeout(function(){window.open('invoices.php','_self')},1000);</script>";
+   }}}
 }
 ?>
 <div class="card-body">
   <h4>Assign Services:</h4>
   <form method="post">
-    <table class="table table-bordered"> 
+    <table class="table table-responsive"> 
       <thead>
        <tr>
-        <th>#</th> <th>Service</th> <th>Price</th> <th>Action</th> 
+        <th>Service</th><th>Recipients</th> <th>Price</th> <th>Action</th> 
       </tr> 
     </thead> 
     <tbody>
@@ -49,14 +53,17 @@ if(isset($_POST['save'])){
       while ($row=mysqli_fetch_array($ret)) {
         ?>
         <tr> 
-          <th scope="row"><?php echo $cnt;?></th> 
-          <td><?php  echo $row['ServiceName'];?></td> 
-          <td><?php  echo $row['Cost'];?></td> 
+         
+          <td><?php  echo $row['ServiceName'];?></td>
+          <td><input name="reci[]" size="3"/></td>
+          <td><?php  echo $row['Cost'];?></td>
           <td><input type="checkbox" name="sids[]" value="<?php  echo $row['ID'];?>" ></td> 
         </tr>   
         <?php 
         $cnt=$cnt+1;
       }?>
+      <tr><td><input type="datetime" placeholder="Date"/></td></tr>
+      <tr><td><input type="text" placeholder="Address"/></td></tr>
       <tr>
         <td colspan="4" align="center">
           <button type="submit" name="save" class="btn completeBtn">Submit</button>   

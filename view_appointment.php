@@ -116,7 +116,30 @@ include_once 'functions/functions.php';
         </div>
       </form>
     <?php }
+    ?><?php if($row['Status']=="1"){
           ?>
+          <form name="update" method="post" action="includes/close.inc.php">    
+          <div class="row mb-3">';
+          <label> Outcome :</label><select name="status" class="form-control wd-450" required="true">
+          <option value="1" selected="true">Completed</option>
+          <option value="0">Missed</option>
+          </select>;
+         </div>;
+         
+        <input type="hidden" name="name" value= <?php echo $row['Name']; ?>>
+        <input type="hidden" name="email" value=<?php  echo $row['Email'];?>>
+        
+        <input type="hidden" name="date" value= <?php echo $row['AptDate']; ?>>
+        <input type="hidden" name="time" value= <?php echo $row['AptTime']; ?>>
+        <input type="hidden" name="service" value= <?php echo $row['Services']; ?>>
+        <input type="hidden" name="recipients" value= <?php echo $row['recipients']; ?>>
+        <input type="hidden" name="total" value= <?php echo $row['total']; ?>>
+        <div class="row centered">
+          <button type="submit" name="save2" class="btn editBtn">Save</button>
+        </div>
+      </form>
+      <?php 
+    }; ?>
      </div>
     
     <?php } ?>

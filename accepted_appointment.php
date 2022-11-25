@@ -1,7 +1,6 @@
 <?php
 
 include_once 'auth/session.php';
-include_once 'auth/db.php';
 include('includes/dbconnection.php');
 if (!isset($_SESSION['sid'])) {
   header('location: logout.php');
@@ -27,7 +26,7 @@ if (!isset($_SESSION['sid'])) {
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 style="font-size: x-larger">Appointments</h1>
+              <h1 style="font-size: x-larger">Scheduled Appointments</h1>
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
@@ -74,7 +73,7 @@ if (!isset($_SESSION['sid'])) {
                include_once 'functions/functions.php';
                ?>
                <div class="card-body" style="font-size: small">
-                <table id="example1" class="table table-hover">
+                <table id="example1" class="table table-hover table-responsive">
                   <thead> 
                     <tr> 
                     <th>Service</th> 
@@ -121,6 +120,16 @@ if (!isset($_SESSION['sid'])) {
     </section>
     <!-- /.content -->
   </div>
+  <script type='text/javascript'>
+			Swal.fire({
+        position: 'top-end',
+				icon: 'question',
+				title: 'Heading out?',
+				text: 'Remember to check in with clients',
+				timer: 2000,
+        showConfirmButton:false,
+			  });
+			</script>
   <!-- /.content-wrapper -->
   <?php @include("includes/footer.php"); ?>
 

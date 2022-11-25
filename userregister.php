@@ -230,7 +230,7 @@ if(isset($_GET['delid']))
                     </thead>
                     <tbody>
                      <?php
-                     $aid=$_SESSION['cpmsaid'];
+                     $aid=$_SESSION['sid'];
                      $sql="SELECT * from tblusers where status='1'";
                      $query = $dbh -> prepare($sql);
                      $query->execute();

@@ -43,13 +43,13 @@ if (!isset($_SESSION['sid'])) {
                     <div class="row">
                         <div class="col-lg-3 col-6">
                             <!-- small box -->
-                            <div class="small-box bg-info">
+                            <div class="small-box" style="background-color: teal; color: white;">
                                 <?php $query1=mysqli_query($con,"Select * from tblcustomers");
                                 $totalcust=mysqli_num_rows($query1);
                                 ?>
                                 <div class="inner">
                                     <h3><?php echo $totalcust;?></h3>
-                                    <p>Total Customers</p>
+                                    <p>Overall Customers</p>
                                 </div>
                                 <a href="customer_list.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
@@ -64,7 +64,7 @@ if (!isset($_SESSION['sid'])) {
                                 <div class="inner">
                                     <h3><?php echo $totalappointment;?></h3>
 
-                                    <p>Total Appointments</p>
+                                    <p>Overall Appointments</p>
                                 </div>
                                 <a href="all_appointments.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
@@ -72,14 +72,14 @@ if (!isset($_SESSION['sid'])) {
                         <!-- ./col -->
                         <div class="col-lg-3 col-6">
                             <!-- small box -->
-                            <div class="small-box bg-info">
+                            <div class="small-box" style="background-color: green; color: white;">
                                 <?php $query3=mysqli_query($con,"Select * from tblappointment where Status='1'");
                                 $totalaccapt=mysqli_num_rows($query3);
                                 ?>
                                 <div class="inner">
                                     <h3><?php echo $totalaccapt;?></h3>
 
-                                    <p>Accepted Appointments</p>
+                                    <p>Scheduled Appointments</p>
                                 </div>
                                 <a href="accepted_appointment.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
@@ -94,7 +94,7 @@ if (!isset($_SESSION['sid'])) {
                                 <div class="inner">
                                     <h3><?php echo $totalrejapt;?></h3>
 
-                                    <p>Rejected Appointments</p>
+                                    <p>Declined Appointments</p>
                                 </div>
                                 <a href="rejected_appointment.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
@@ -106,12 +106,13 @@ if (!isset($_SESSION['sid'])) {
                     <div class="row">
                         <div class="col-lg-3 col-6">
                             <!-- small box -->
-                            <div class="small-box bg-primary">
+                            <div class="small-box" style="background-color: gold; color: white;">
                                 <?php
                                  //todays sale
                                 $query6=mysqli_query($con,"select tblinvoice.ServiceId as ServiceId, tblservices.Cost
                                    from tblinvoice 
                                    join tblservices  on tblservices.ID=tblinvoice.ServiceId where date(PostingDate)=CURDATE();");
+                                   $todysale = 0;
                                 while($row=mysqli_fetch_array($query6))
                                 {
                                     $todays_sale=$row['Cost'];
@@ -131,7 +132,7 @@ if (!isset($_SESSION['sid'])) {
                                         ?>
 
                                     </h3>
-                                    <p>Today Sales</p>
+                                    <p>Today's Appointments</p>
                                 </div>
                                 <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
@@ -139,12 +140,14 @@ if (!isset($_SESSION['sid'])) {
                         <!-- ./col -->
                         <div class="col-lg-3 col-6">
                             <!-- small box -->
-                            <div class="small-box bg-primary">
+                            <div class="small-box" style="background-color: lime; color: white;">
+                        
                                 <?php
                                 //Yesterday's sale
                                 $query7=mysqli_query($con,"select tblinvoice.ServiceId as ServiceId, tblservices.Cost
                                  from tblinvoice 
                                  join tblservices  on tblservices.ID=tblinvoice.ServiceId where date(PostingDate)=CURDATE()-1;");
+                                 $yesterdaysale = 0;
                                 while($row7=mysqli_fetch_array($query7))
                                 {
                                     $yesterdays_sale=$row7['Cost'];
@@ -156,14 +159,14 @@ if (!isset($_SESSION['sid'])) {
                                     <h3>
                                         <?php
                                         $pop1=0;
-                                        if (strlen($yesterdaysale==0)) {
+                                        if ($yesterdaysale==0) {
                                             echo $pop1;
                                         } else{ 
                                             echo $yesterdaysale; 
                                         }?>
                                     </h3>
 
-                                    <p>Yesterday Sales</p>
+                                    <p>Completed Appointments</p>
                                 </div>
                                 <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
@@ -171,13 +174,14 @@ if (!isset($_SESSION['sid'])) {
                         <!-- ./col -->
                         <div class="col-lg-3 col-6">
                             <!-- small box -->
-                            <div class="small-box bg-primary">
+                            <div class="small-box" style="background-color: teal; color: white;">
                                 <?php
                                  //Last Sevendays Sale
                                 $query8=mysqli_query($con,"select tblinvoice.ServiceId as ServiceId, tblservices.Cost
                                  from tblinvoice 
                                  join tblservices  on tblservices.ID=tblinvoice.ServiceId where date(PostingDate)>=(DATE(NOW()) - INTERVAL 7 DAY);");
-                                while($row8=mysqli_fetch_array($query8))
+                                 $tseven=0;
+                                 while($row8=mysqli_fetch_array($query8))
                                 {
                                     $sevendays_sale=$row8['Cost'];
                                     $tseven+=$sevendays_sale;
@@ -189,14 +193,14 @@ if (!isset($_SESSION['sid'])) {
                                        <?php
                                        $pop2=0;
                                        if (strlen($tseven==0)) {
-                                        echo $pop2;
+                                        echo "R ".$pop2;
                                     } else{ 
-                                        echo $tseven;
+                                        echo "R ".$tseven;
                                     }
                                     ?> 
                                 </h3>
 
-                                <p>Last seven days</p>
+                                <p>App Revenue</p>
                             </div>
                             <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
@@ -204,12 +208,13 @@ if (!isset($_SESSION['sid'])) {
                     <!-- ./col -->
                     <div class="col-lg-3 col-6">
                         <!-- small box -->
-                        <div class="small-box bg-primary">
+                        <div class="small-box" style="background-color: teal; color: white;">
                             <?php
                             //Total Sale
                             $query9=mysqli_query($con,"select tblinvoice.ServiceId as ServiceId, tblservices.Cost
                              from tblinvoice 
                              join tblservices  on tblservices.ID=tblinvoice.ServiceId");
+                             $totalsale=0;
                             while($row9=mysqli_fetch_array($query9))
                             {
                                 $total_sale=$row9['Cost'];
@@ -218,9 +223,9 @@ if (!isset($_SESSION['sid'])) {
                             }
                             ?>
                             <div class="inner">
-                                <h3><?php echo htmlentities(number_format($totalsale, 0, '.', ','));?></h3>
+                                <h3><?php echo "R ".$totalsale;?></h3>
 
-                                <p>Total Sales</p>
+                                <p>Call-in Revenue</p>
                             </div>
                             <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                         </div>

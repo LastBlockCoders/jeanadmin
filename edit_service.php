@@ -54,12 +54,12 @@ if(isset($_POST['submit']))
   $cnt=1;
   while ($row=mysqli_fetch_array($ret))
   {
-    $_SESSION['edid']=$row['id'];
+    $_SESSION['edid']=$row['ID'];
     ?> 
     <div class="card-body">
       <div class="form-group">
         
-        <input type="text" class="form-control" id="sername" name="sername" placeholder="Service Name" value="<?php  echo $row['name'];?>" required>
+        <input type="text" class="form-control" id="sername" name="sername" placeholder="Service Name" value="<?php  echo $row['ServiceName'];?>" required>
       </div>
       <div class="form-group">
         <label for="description">Description</label>
@@ -67,7 +67,7 @@ if(isset($_POST['submit']))
       </div>
       <div class="form-group">
         <label for="exampleInputPassword1">Price</label>
-        <input type="text" id="cost" name="price" class="form-control" placeholder="Price" value="<?php  echo $row['price'];?>" required="true">
+        <input type="text" id="cost" name="price" class="form-control" placeholder="Price" value="<?php  echo $row['Cost'];?>" required="true">
       </div>
       <div class="form-group">
         <label for="duration">Duration</label>

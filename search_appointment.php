@@ -1,6 +1,6 @@
 <?php
 session_start();
-error_reporting(0);
+
 include('includes/dbconnection.php');
 // if (strlen($_SESSION['bpmsaid']==0)) {
 //   header('location:logout.php');
@@ -19,9 +19,9 @@ include('includes/dbconnection.php');
     <?php @include("includes/sidebar.php"); ?>
 
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+    <div class="content-wrapper" style="font-size: smaller">
       <!-- Content Header (Page header) -->
-      <section class="content-header">
+      <section class="content-header" style="font-size: smaller">
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
@@ -29,8 +29,8 @@ include('includes/dbconnection.php');
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">General Form</li>
+                <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
+                <li class="breadcrumb-item active">Search appointments</li>
               </ol>
             </div>
           </div>
@@ -40,11 +40,15 @@ include('includes/dbconnection.php');
       <!-- Main content -->
       <section class="content">
         <div class="container-fluid">
-          <div id="editData" class="modal fade">
-            <div class="modal-dialog modal-lg ">
+        <div class="row">
+            <div class="col-md-12">
+            <div class="card">
+              
+            <div id="editData" class="modal fade">
+             <div class="modal-dialog modal-lg ">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title">View Appoint</h5>
+                  <h5 class="modal-title">View Appointment</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -55,11 +59,12 @@ include('includes/dbconnection.php');
                 <div class="modal-footer ">
                 </div>
                 <!-- /.modal-content -->
+                </div>
+           
               </div>
-              <!-- /.modal-dialog -->
-            </div>
             <!-- /.modal -->
           </div>
+      </div>
           <!--   end modal -->
           <div class="row">
             <!-- left column -->
@@ -67,15 +72,15 @@ include('includes/dbconnection.php');
               <!-- general form elements -->
               <!-- Input addon -->
               <div class="card card-info">
-                <div class="card-header">
+                <div class="card-header" style="background-color: teal;">
                   <h3 class="card-title">Search Appointment</h3>
                 </div>
-                <div class="card-body">
+                <div class="card-body" style ="background-color: teal;">
                  <form method="post" name="search" action="">
                   <div class="input-group input-group-md">
                     <input type="text" id="searchdata"  name="searchdata" required="true" class="form-control">
                     <span class="input-group-append">
-                      <button type="submit" name="search"  class="btn btn-info btn-flat">Go!</button>
+                      <button type="submit" name="search"  class="btn btn-flat" style="background-color:gold; color: teal;">Go!</button>
                     </span>
                   </div>
                 </form>
@@ -85,29 +90,32 @@ include('includes/dbconnection.php');
             </div>
             <!-- /.card -->
           </div>
-          <div class="card-body col-md-12">
+          <div class="row">
+          <div class="col-md-6">
+          <div class="card-body">
             <?php
             if(isset($_POST['search']))
             { 
 
               $sdata=$_POST['searchdata'];
               ?>
-              <h5 align="center" style="color: blue;" class="mb-3">Result against "<?php echo $sdata;?>" keyword </h4> 
-              <table class="table table-bordered"> 
+              <h5 align="center" style="color: teal;" class="mb-3">Result against "<?php echo $sdata;?>" keyword </h4> 
+              <table id="" class="table  table-hover"> 
                 <thead> 
                   <tr> 
                     <th>#</th> 
-                    <th> Appointment Number</th> 
+                   
                     <th>Name</th>
-                    <th>Mobile Number</th> 
-                    <th>Appointment Date</th>
-                    <th>Appointment Time</th>
+                    <th>Phone</th> 
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th> Status</th> 
                     <th>Action</th> 
                   </tr> 
                 </thead> 
                 <tbody>
                   <?php
-                  $ret=mysqli_query($con,"select *from  tblappointment where AptNumber like '%$sdata%' || Name like '%$sdata%' || PhoneNumber like '%$sdata%'");
+                  $ret=mysqli_query($con,"select *from  tblappointment where Name like '%$sdata%' || Email like '%$sdata%' || PhoneNumber like '%$sdata%'");
                   $num=mysqli_num_rows($ret);
                   if($num>0){
                     $cnt=1;
@@ -117,11 +125,12 @@ include('includes/dbconnection.php');
 
                       <tr> 
                         <th scope="row"><?php echo $cnt;?></th> 
-                        <td><?php  echo $row['AptNumber'];?></td> 
+                       
                         <td><?php  echo $row['Name'];?></td>
                         <td><?php  echo $row['PhoneNumber'];?></td>
                         <td><?php  echo $row['AptDate'];?></td> 
-                        <td><?php  echo $row['AptTime'];?></td> 
+                        <td><?php  echo $row['AptTime'];?></td>
+                        <td><?php  echo $row['Status'];?></td> 
                         <td><a href="#" class=" edit_data" id="<?php echo  $row['ID']; ?>" title="click for edit">View</a></td>  
                         </tr>   <?php 
                         $cnt=$cnt+1;
@@ -137,8 +146,11 @@ include('includes/dbconnection.php');
                 </tbody> 
               </table> 
             </div>
-          </div>
+         
           <!-- /.row -->
+             
+               
+                </div>
         </div><!-- /.container-fluid -->
       </section>
       <!-- /.content -->
