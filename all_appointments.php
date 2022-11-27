@@ -104,8 +104,8 @@ if (isset($_SESSION['sid'])) {
 
                           <tr> 
                         <td><?php echo $cnt;?></td>
-                        <td><?php  echo GetServiceName($con,$row['Services']);?></td>
-                        <td><a class="myLink" href= <?php $str = $row['phone'];
+                        <td><?php  echo GetServiceName($con,$row['services']);?></td>
+                        <td><a class="myLink" href= <?php $str = $row['Phonenumber'];
                               $number= ltrim($str, "0");
                                echo "https://wa.me/27{$number}?text=Good%20day%2C%20This%20is%20Jeans%20Mobile%20Beauty%20and%20Wellness";?>>
                                <?php  echo $row['Name'];?></a></td>

@@ -37,7 +37,7 @@ include_once 'auth/db.php';
           while($result=mysqli_fetch_array($ret))
           {
             ?>
-            <a href="view-appointment.php?viewid=<?php echo $result['ID'];?>" class="dropdown-item">
+            <a href="new_appointment.php" class="dropdown-item">
               <i class="fas fa-envelope mr-2"></i> Request from <?php echo $result['Name'];?>
             </a>
             <div class="dropdown-divider"></div>

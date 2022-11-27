@@ -1,7 +1,8 @@
 <?php 
 include_once 'auth/session.php';
 include_once 'auth/db.php';
-include('includes/dbconnection.php');
+include_once 'includes/dbconnection.php';
+include_once 'functions/functions.php';
 
 if (isset($_SESSION['sid'])) {
   if(isset($_SESSION['permission'])){
@@ -40,6 +41,31 @@ if(isset($_POST['submit']))
     $mobile=$_POST['mobile'];
     $password=md5($_POST['password']);
     $status=1; 
+
+    if(invalidEmail($email) != false){
+      echo "<script type='text/javascript'>
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops..',
+      text: 'Invalid Email',
+      showConfirmButton: false,
+      timer: 2000
+      });
+    </script>";
+
+    }
+    if(invalidPhone($phone) != false){
+      echo "<script type='text/javascript'>
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops..',
+      text: 'Invalid Phone Number',
+      showConfirmButton: false,
+      timer: 2000
+      });
+    </script>";
+    }
+
     $sql="INSERT INTO  tblusers(name,username,email,password,status,mobile,sex,lastname,permission) VALUES(:name,:username,:email,:password,:status,:mobile,:sex,:lastname,:permission)";
     $query = $dbh->prepare($sql);
     $query->bindParam(':name',$name,PDO::PARAM_STR);

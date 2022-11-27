@@ -2,12 +2,10 @@
 include_once 'auth/session.php';
 include('includes/dbconnection.php');
 
-if(isset($_SESSION['permission'])){
-  if (($_SESSION['permission'] != "Superuser") && ($_SESSION['permission'] != "Admin")) {
+if(!isset($_SESSION['sid'])){
   header('location: logout.php');
   exit();
-  }
-  }; 
+  };
 ?>
 <!DOCTYPE html>
 <html>
@@ -86,7 +84,7 @@ if(isset($_SESSION['permission'])){
                   <tbody>
 
                     <?php
-                    $ret=mysqli_query($con,"select *from  tblservices");
+                    $ret=mysqli_query($con,"select * from  tblservices");
                     $cnt=1;
                     while ($row=mysqli_fetch_array($ret)) {
                       ?>
@@ -98,7 +96,10 @@ if(isset($_SESSION['permission'])){
                         <td><?php  echo $row['duration'].' minutes';?></td> 
                         <td>
                          <button class="editBtn"><a href="#"  class=" edit_data" id="<?php echo  $row['ID']; ?>" title="click for edit">Edit</i></a></button>
-                         <button class="deleteBtn">Delete</button>
+                         <form method="post">
+                          <button class="deleteBtn" type="submit" name="delete">Delete</button>
+                          <input type="hidden" name="id" value="<?php echo  $row['ID']; ?>"/>
+                        </form>
                         </td>
                       </tr>   
                       <?php 
@@ -150,3 +151,35 @@ if(isset($_SESSION['permission'])){
 </script>
 </body>
 </html>
+<?php
+
+  if(isset($_POST['delete'])){
+
+    $seid= $_POST['id'];
+
+    $query = mysqli_query($con, "DELETE FROM  tbleservices where ID=$seid;");
+
+    if($query){
+      echo "<script type='text/javascript'>
+    Swal.fire({
+      icon: 'success',
+      title: 'Deleted',
+      text: 'Services Updated',
+      showConfirmButton: false,
+      timer: 2000
+      });</script>"; }
+    else{
+      echo "<script type='text/javascript'>
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Something went wrong',
+      showConfirmButton: false,
+      timer: 2000
+      });
+    </script>";
+    }
+
+  }
+
+?>

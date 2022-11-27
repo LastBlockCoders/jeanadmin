@@ -3,23 +3,6 @@
 include_once 'auth/session.php';
 include_once 'auth/db.php';
 include('includes/dbconnection.php');
-if(isset($_GET['blockid']))
-{
-  $blockedid=intval($_GET['blockid']);
-  $sql="update tblusers set status='1' where id='$blockedid'";
-  $query=$dbh->prepare($sql);
-  $query->bindParam(':blockedid',$blockedid,PDO::PARAM_STR);
-  $query->execute();
-  echo "<script type='text/javascript'>
-  Swal.fire({
-    icon: 'success',
-    title: 'Restored Successfully!',
-    showConfirmButton: false,
-    timer: 2000
-    });
-    setTimeout(function(){window.open('userregister.php','_self')},1500);
-  </script>";
-}
 ?>
 <div class="card-body">
  <table  class="table table-bordered table-striped">
@@ -50,7 +33,7 @@ if(isset($_GET['blockid']))
          <td class="text-left" ><?php  echo htmlentities($row->email);?></td>
          <td class="text-left"><?php  echo htmlentities($row->permission);?></td>
          <td class="text-left">
-           <a href="blockedusers.php?blockid=<?php echo ($row->id);?>" onclick="return confirm('Do you really want to unblock user ?');" title="Restore this User">unblock</i></a>
+           <a href="userregister.php?blockid=<?php echo ($row->id);?>">Unblock</i></a>
          </td>
        </tr>
        <?php 
@@ -60,4 +43,3 @@ if(isset($_GET['blockid']))
 </table>
 </div>
 <!-- /.card-body -->
-

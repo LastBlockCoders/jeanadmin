@@ -79,8 +79,8 @@ if (isset($_SESSION['sid'])) {
                <?php
                include_once 'functions/functions.php';
                ?>
-               <div class="card-body" style="font-size: small">
-                <table id="example1" class="table table-hover table-responsive">
+               <div class="card-body">
+                <table id="example1" class="table table-hover">
                   <thead> 
                     <tr> 
                     <th>Service</th> 
@@ -177,3 +177,28 @@ if (isset($_SESSION['sid'])) {
 </script>
 </body>
 </html>
+<?php
+  if(isset($_GET['error'])){
+    if($_GET['error'] == 'none'){
+      echo "<script type='text/javascript'>
+      Swal.fire({
+        icon: 'success',
+        title: 'Request Closed',
+        showConfirmButton: false,
+        timer: 2000
+        });</script>";
+    }
+    elseif($_GET['error'] == 'somethingwentwrong'){
+      echo "<script type='text/javascript'>
+			Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: 'Something went wrong',
+        showConfirmButton: false,
+				timer: 2000
+			  });
+			</script>"; 
+    }
+  }
+
+?>

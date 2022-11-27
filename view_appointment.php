@@ -11,7 +11,8 @@ if (isset($_SESSION['sid'])) {
     exit();
     }
     }
-}else{
+}
+else{
   header('location:logout.php');
 }
 ?>
@@ -36,7 +37,7 @@ if (isset($_SESSION['sid'])) {
       </tr>
       <tr>
         <th>Client</th>
-        <td style='color: teal;'><a class="myLink" href= <?php $str = $row['phone'];
+        <td style='color: teal;'><a class="myLink" href= <?php $str = $row['Phonenumber'];
                               $number= ltrim($str, "0");
                                echo "https://wa.me/27{$number}?text=Good%20day%2C%20This%20is%20Jeans%20Mobile%20Beauty%20and%20Wellness";?>>
                                <?php  echo $row['Name'];?></td>
@@ -47,10 +48,10 @@ if (isset($_SESSION['sid'])) {
       </tr>
       <tr>
         <th>Mobile Number</th>
-        <td style='color: teal;'><a class="myLink" href= <?php $str = $row['phone'];
+        <td style='color: teal;'><a class="myLink" href= <?php $str = $row['Phonenumber'];
                               $number= ltrim($str, "0");
                                echo "https://wa.me/27{$number}?text=Good%20day%2C%20This%20is%20Jeans%20Mobile%20Beauty%20and%20Wellness";?>>
-                               <?php  echo $row['Phone'];?></td>
+                               <?php  echo $row['Phonenumber'];?></td>
       </tr>
       <tr>
         <th>Date</th>
@@ -134,30 +135,24 @@ if (isset($_SESSION['sid'])) {
         <input type="hidden" name="recipients" value= <?php echo $row['recipients']; ?>>
         <input type="hidden" name="total" value= <?php echo $row['total']; ?>>
         <div class="row centered">
-          <button type="submit" name="save2" class="btn editBtn">Submit</button>
+          <button type="submit" name="reply" class="btn editBtn">Submit</button>
         </div>
       </form>
     <?php }
     ?><?php if($row['Status']=="1"){
           ?>
-          <form name="update" method="post" action="includes/close.inc.php">    
+          <form name="update" method="post" action="includes/outcome.inc.php">    
           <div class="row mb-3">';
           <label> Outcome :</label><select name="status" class="form-control wd-450" required="true">
-          <option value="1" selected="true">Completed</option>
-          <option value="0">Missed</option>
+          <option value="3" selected="true">Completed</option>
+          <option value="4">Missed</option>
           </select>;
          </div>;
          
-        <input type="hidden" name="name" value= <?php echo $row['Name']; ?>>
-        <input type="hidden" name="email" value=<?php  echo $row['Email'];?>>
+        <input type="hidden" name="id" value= <?php echo $row['ID']; ?>>
         
-        <input type="hidden" name="date" value= <?php echo $row['AptDate']; ?>>
-        <input type="hidden" name="time" value= <?php echo $row['AptTime']; ?>>
-        <input type="hidden" name="service" value= <?php echo $row['services']; ?>>
-        <input type="hidden" name="recipients" value= <?php echo $row['recipients']; ?>>
-        <input type="hidden" name="total" value= <?php echo $row['total']; ?>>
         <div class="row centered">
-          <button type="submit" name="save2" class="btn editBtn">Save</button>
+          <button type="submit" name="outcome" class="btn editBtn">Save</button>
         </div>
       </form>
       <?php 

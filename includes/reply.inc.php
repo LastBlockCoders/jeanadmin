@@ -2,6 +2,10 @@
 
 include_once '../auth/session.php';
 include_once '../auth/db.php';
+if(!isset($_SESSION['sid'])){
+    header('location: logout.php');
+    exit();
+}
 
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -499,12 +503,12 @@ function Reply_to_customer($con, $status, $cid, $name, $remail, $service, $date,
 
     }
     catch(mysqli_sql_exception $e){
-        header("location: ../view_appointment.php?error=somethingwentwrong");
+        header("location: ../new_appointment.php?error=somethingwentwrong");
         exit();
     }
 }
 
-if(isset($_POST['save2']))
+if(isset($_POST['reply']))
 {
   $cid=$_SESSION['aid'];
   $status=$_POST['status'];
@@ -517,7 +521,7 @@ if(isset($_POST['save2']))
   $total=$_POST['total'];
   
   Reply_to_customer($con, $status, $cid, $name, $remail, $service, $date, $time, $total, $recipients);
-  echo "function hit";
+  
   
 }
 ?>

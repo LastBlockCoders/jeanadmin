@@ -3,11 +3,9 @@
 include_once 'auth/session.php';
 include_once 'auth/db.php';
 
-if(isset($_SESSION['permission'])){
-  if (($_SESSION['permission'] != "Superuser") && ($_SESSION['permission'] != "Admin")) {
-  header('location: dashboard.php?error=denied');
+if(!isset($_SESSION['sid'])){
+  header('location: logout.php');
   exit();
-  }
   };
 
 if(isset($_POST['submit']))
@@ -16,11 +14,11 @@ if(isset($_POST['submit']))
   $price=$_POST['price'];
   $description=$_POST['description'];
   $duration=$_POST['duration'];
-
+  $promo_price = $_POST['promo_price'];
+  $on_promo = $_POST['on_promo'];
   $eid=$_SESSION['edid'];
-  $query=mysqli_query($con, "update  tblservices set name='$sername',description='$description',price='$price',duration='$duration'  where ID='$eid';");
+  $query=mysqli_query($con, "update  tblservices set name='$sername',description='$description',price='$price',promo_price='$promo_price',on_promo='$on_promo',duration='$duration'  where ID='$eid';");
   if ($query) {
-    //$msg="Service has been Updated.";
     echo "<script type='text/javascript'>
 			Swal.fire({
 				icon: 'success',
@@ -70,8 +68,19 @@ if(isset($_POST['submit']))
         <input type="text" id="cost" name="price" class="form-control" placeholder="Price" value="<?php  echo $row['Cost'];?>" required="true">
       </div>
       <div class="form-group">
+        <label for="promo_price">Promotional Price</label>
+        <input type="text" class="form-control" id="promo_price" name="pomo_price" placeholder="Price when on promotion">
+      </div>
+      <div class="form-group">
         <label for="duration">Duration</label>
         <input type="text" id="duration" name="duration" class="form-control" placeholder="Duration" value="<?php  echo $row['duration'];?>" required="true">
+      </div>
+      <div class="form-group">
+        <label for="on_promo">Activate Promotion</label>
+        <select name="on_promo" class="form-control">
+        <option value="0" selected="true">No</option>
+        <option value="1">Yes</option>
+        </select>
       </div>
       <?php 
     } ?>

@@ -4,16 +4,17 @@ include_once 'auth/session.php';
 include_once 'auth/db.php';
 
 include('includes/dbconnection.php');
+
 if (!isset($_SESSION['sid']) || ($_SESSION['permission'] != "Superuser")) {
   header('location: logout.php');
   exit();
 } 
 if(isset($_GET['delid']))
 {
-  $rid=intval($_GET['delid']);
-  $sql="update tblusers set status='0' where id='$rid'";
+  $rid=$_GET['delid'];
+  $sql="update tblusers set status='0' where id=:rid";
   $query=$dbh->prepare($sql);
-  $query->bindParam(':rid',$rid,PDO::PARAM_STR);
+  $query->bindParam(':rid',$rid,PDO::PARAM_INT);
   $query->execute();
   echo "<script type='text/javascript'>
   Swal.fire({
@@ -25,6 +26,23 @@ if(isset($_GET['delid']))
     setTimeout(function(){window.open('userregister.php','_self')},1500);
   </script>";
 }
+if(isset($_GET['blockid']))
+{
+  $blockedid=intval($_GET['blockid']);
+  $sql="update tblusers set status='1' where id=:blockedid";
+  $query=$dbh->prepare($sql);
+  $query->bindParam(':blockedid',$blockedid,PDO::PARAM_STR);
+  $query->execute();
+  echo "<script type='text/javascript'>
+  Swal.fire({
+    icon: 'success',
+    title: 'Restored Successfully!',
+    showConfirmButton: false,
+    timer: 2000
+    });
+  </script>";
+}
+?>
 ?>
 <?php @include("includes/head.php"); ?>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -248,7 +266,7 @@ if(isset($_GET['delid']))
                           <td class="text-left"><?php  echo htmlentities($row->permission);?></td>
                           <td class="text-left">
                            <a class="edit_data" id="<?php echo  ($row->id); ?>" title="click for edit"><i class="fas fa-edit"></i></a>
-                           <a href="userregister.php?delid=<?php echo ($row->id);?>" title="click for block" onclick="return confirm('sure to block ?')" >Block</i></a>
+                           <a href="userregister.php?delid=<?php echo ($row->id);?>" title="click for block" >Block</i></a>
                          </td>
                        </tr>
 

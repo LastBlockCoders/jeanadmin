@@ -41,7 +41,7 @@
               </div>
               <!-- /.col -->
               <div class="col-4">
-                <button type="submit" name="login" class="btn btn-primary btn-block" data-toggle="modal" data-taget="#modal-default">Login</button>
+                <button type="submit" name="login" class="btn editBtn" data-toggle="modal" data-taget="#modal-default">Login</button>
               </div>
               <!-- /.col -->
             </div>
@@ -71,16 +71,17 @@
 			Swal.fire({
 				icon: 'success',
 				title: 'Welcome Back!',
+        showConfirmButton: false,
 				timer: 2000
 			  });
         setTimeout(function(){window.open('dashboard.php','_self')},1500);
 			</script>";}
-      elseif($_GET["error"] == "nosuchuserdb"){
+      elseif($_GET["error"] == "nosuchuser"){
         echo "<script type='text/javascript'>
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: 'Something went wrong, database',
+          text: 'Something went wrong',
           timer: 2000
           });
         </script>";

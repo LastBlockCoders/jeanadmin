@@ -19,8 +19,7 @@ if (isset($_SESSION['sid'])) {
     $name=$_POST['name'];
     $email=$_POST['email'];
     $mobilenum=$_POST['mobilenum'];
-    $details=$_POST['details'];
-    $query=mysqli_query($con, "insert into  tblcustomers(Name,Email,MobileNumber,Details) value('$name','$email','$mobilenum','$details')");
+    $query=mysqli_query($con, "insert into  tblcustomers(Name,Email,MobileNumber) value('$name','$email','$mobilenum')");
     if ($query) {
       echo "<script type='text/javascript'>
       Swal.fire({

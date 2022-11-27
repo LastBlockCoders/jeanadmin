@@ -16,7 +16,9 @@ else
     $description=$_POST['description'];
     $price=$_POST['cost'];
     $duration=$_POST['duration'];
-    $query=mysqli_query($con, "insert into  tblservices(cat_id,name,description,price,duration) values($cat_id,'$name','$description',$price,$duration);");
+    $promo_price = $_POST['promo_price'];
+    $on_promo = $_POST['on_promo'];
+    $query=mysqli_query($con, "insert into  tblservices(cat_id,name,description,price,promo_price,on_promo,duration) values($cat_id,'$name','$description',$price, $promo_price,$on_promo,$duration);");
     if ($query) {
       echo "<script type='text/javascript'>
 			Swal.fire({
@@ -110,8 +112,19 @@ else
                       <input type="text" class="form-control" id="cost" name="cost" placeholder="Price">
                     </div>
                     <div class="form-group">
+                      <label for="exampleInputPassword1">Promotional Price</label>
+                      <input type="text" class="form-control" id="promo_price" name="pomo_price" placeholder="Price when on promotion">
+                    </div>
+                    <div class="form-group">
                       <label for="exampleInputPassword1">Duration (in minutes)</label>
                       <input type="number" class="form-control" id="duration" name="duration" placeholder="Enter duration of service">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Activate Promotion</label>
+                      <select name="on_promo" class="form-control">
+                      <option value="0" selected="true">No</option>
+                      <option value="1">Yes</option>
+                      </select>
                     </div>
                   </div>
                   <!-- /.card-body -->
