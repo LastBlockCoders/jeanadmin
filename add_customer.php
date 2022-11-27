@@ -2,6 +2,7 @@
 include_once 'auth/db.php';
 include_once 'includes/dbconnection.php';
 include_once 'auth/session.php';
+include_once 'functions/functions.php';
 
 if (isset($_SESSION['sid'])) {
   if(isset($_SESSION['permission'])){
@@ -19,7 +20,31 @@ if (isset($_SESSION['sid'])) {
     $name=$_POST['name'];
     $email=$_POST['email'];
     $mobilenum=$_POST['mobilenum'];
-    $query=mysqli_query($con, "insert into  tblcustomers(Name,Email,MobileNumber) value('$name','$email','$mobilenum')");
+
+    if(invalidEmail($email) != false){
+      echo "<script type='text/javascript'>
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong',
+        showConfirmButton: false,
+        timer: 2000
+        });
+      </script>";  
+    }
+    if(invalidPhone($mobilenum)){
+      echo "<script type='text/javascript'>
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong',
+        showConfirmButton: false,
+        timer: 2000
+        });
+      </script>";  
+    }
+
+    $query=mysqli_query($con, "insert into  tblcustomers(name,email,mobilenumber) value('$name','$email','$mobilenum')");
     if ($query) {
       echo "<script type='text/javascript'>
       Swal.fire({

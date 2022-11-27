@@ -126,7 +126,7 @@ include('includes/dbconnection.php');
                 </thead> 
                 <tbody>
                   <?php
-                  $ret=mysqli_query($con,"select *from  tblappointment where Name like '%$sdata%' || Email like '%$sdata%' || PhoneNumber like '%$sdata%'");
+                  $ret=mysqli_query($con,"select *from  tblappointment where name like '%$sdata%' || email like '%$sdata%' || phone like '%$sdata%'");
                   $num=mysqli_num_rows($ret);
                   if($num>0){
                     $cnt=1;
@@ -137,12 +137,12 @@ include('includes/dbconnection.php');
                       <tr> 
                         <th scope="row"><?php echo $cnt;?></th> 
                        
-                        <td><?php  echo $row['Name'];?></td>
-                        <td><?php  echo $row['PhoneNumber'];?></td>
-                        <td><?php  echo $row['AptDate'];?></td> 
-                        <td><?php  echo $row['AptTime'];?></td>
-                        <td><?php  echo $row['Status'];?></td> 
-                        <td><a href="#" class=" edit_data" id="<?php echo  $row['ID']; ?>" title="click for edit">View</a></td>  
+                        <td><?php  echo $row['name'];?></td>
+                        <td><?php  echo $row['phone'];?></td>
+                        <td><?php  echo $row['apt_date'];?></td> 
+                        <td><?php  echo $row['start_time'];?></td>
+                        <td><?php  echo $row['status'];?></td> 
+                        <td><a href="#" class=" edit_data" id="<?php echo  $row['id']; ?>" title="click for edit">View</a></td>  
                         </tr>   <?php 
                         $cnt=$cnt+1;
                       } 

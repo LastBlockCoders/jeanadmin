@@ -105,7 +105,7 @@ else{
 
                       <tr>
                       <?php
-                        $ret=mysqli_query($con,"select * from timages");
+                        $ret=mysqli_query($con,"select * from tblmarketing");
                         $cnt=1;
                         while ($row=mysqli_fetch_array($ret)) {
 

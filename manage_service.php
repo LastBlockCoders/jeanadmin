@@ -90,15 +90,15 @@ if(!isset($_SESSION['sid'])){
                       ?>
                       <tr>
                         <th scope="row"><?php echo $cnt;?></th> 
-                        <td><?php  echo $row['ServiceName'];?></td>
+                        <td><?php  echo $row['name'];?></td>
                         <td><?php  echo $row['description'];?></td>
-                        <td><?php echo  'R'. htmlentities(number_format($row['Cost'], 0, '.', ','));?></td>
+                        <td><?php echo  'R'. htmlentities(number_format($row['price'], 0, '.', ','));?></td>
                         <td><?php  echo $row['duration'].' minutes';?></td> 
                         <td>
-                         <button class="editBtn"><a href="#"  class=" edit_data" id="<?php echo  $row['ID']; ?>" title="click for edit">Edit</i></a></button>
+                         <button class="editBtn"><a href="#"  class=" edit_data" id="<?php echo  $row['id']; ?>" title="click for edit">Edit</i></a></button>
                          <form method="post">
                           <button class="deleteBtn" type="submit" name="delete">Delete</button>
-                          <input type="hidden" name="id" value="<?php echo  $row['ID']; ?>"/>
+                          <input type="hidden" name="id" value="<?php echo  $row['id']; ?>"/>
                         </form>
                         </td>
                       </tr>   
@@ -157,7 +157,7 @@ if(!isset($_SESSION['sid'])){
 
     $seid= $_POST['id'];
 
-    $query = mysqli_query($con, "DELETE FROM  tbleservices where ID=$seid;");
+    $query = mysqli_query($con, "DELETE FROM  tbleservices where id=$seid;");
 
     if($query){
       echo "<script type='text/javascript'>

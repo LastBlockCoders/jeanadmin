@@ -21,9 +21,9 @@ if (isset($_SESSION['sid'])) {
 
     $Mimage_tmp = $_FILES['m_image']['tmp_name'];
 
-    move_uploaded_file ($Mimage_tmp,"marketing/{$m_image}");
+    move_uploaded_file ($Mimage_tmp,"../marketing/{$m_image}");
 
-    $sql = "INSERT INTO timages(name) VALUES('$m_image')";
+    $sql = "INSERT INTO tblmarketing(name) VALUES('$m_image')";
 
     $add_image = mysqli_query($con, $sql);
 

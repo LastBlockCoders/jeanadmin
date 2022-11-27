@@ -24,7 +24,7 @@ if (!isset($_SESSION['sid'])) {
         showConfirmButton: false,
         timer: 2000
         });
-        setTimeout(function(){window.open('ipdate_userimage.php','_self')},1500);
+        setTimeout(function(){window.open('update_userimage.php','_self')},1500);
       </script>";
     }else{
       echo "<script type='text/javascript'>

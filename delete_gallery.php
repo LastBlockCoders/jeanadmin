@@ -19,7 +19,7 @@ if(isset($_POST['submit']))
   $image=$_POST['image'];
   
   $cid=$_SESSION['edid'];
-  $query=mysqli_query($con, "DELETE FROM 'tgallery' where id=$cid;");
+  $query=mysqli_query($con, "DELETE FROM 'tblgallery' where id=$cid;");
   if ($query) {
     echo "<script type='text/javascript'>
     Swal.fire({

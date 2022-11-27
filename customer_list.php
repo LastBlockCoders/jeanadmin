@@ -102,9 +102,8 @@ if (isset($_SESSION['sid'])) {
                     <tr> 
                       <th>#</th> 
                       <th>Name</th> 
-                      <th>Telephone</th>
+                      <th>Mobile Number</th>
                       <th>Email</th> 
-                      <th>Details</th>
                       <th>Action</th> 
                     </tr> 
                   </thead> 
@@ -118,13 +117,12 @@ if (isset($_SESSION['sid'])) {
 
                       <tr> 
                         <th scope="row"><?php echo $cnt;?></th> 
-                        <td><?php  echo $row['Name'];?></td> 
-                        <td><?php  echo $row['MobileNumber'];?></td>
-                        <td><?php  echo $row['Email'];?></td>
-                        <td><?php  echo $row['Details'];?></td> 
+                        <td><?php  echo $row['name'];?></td> 
+                        <td><?php  echo $row['mobilenumber'];?></td>
+                        <td><?php  echo $row['email'];?></td>
                         <td>
-                          <a href="#" class=" btn btn-sm editBtn edit_data" id="<?php echo  $row['ID']; ?>" title="click for edit">Edit</a>
-                          <a href="#" class=" btn btn-sm completeBtn edit_data2" id="<?php echo  $row['ID']; ?>" title="assign services">Generate Invoice</a></td> 
+                          <a href="#" class=" btn btn-sm editBtn edit_data" id="<?php echo  $row['id']; ?>" title="click for edit">Edit</a>
+                          <a href="#" class=" btn btn-sm completeBtn edit_data2" id="<?php echo  $row['id']; ?>" title="assign services">Generate Invoice</a></td> 
                         </tr>   
                         <?php 
                         $cnt=$cnt+1;

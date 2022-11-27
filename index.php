@@ -15,7 +15,7 @@
 
           <form action="includes/signin.inc.php" method="post">
             <div class="input-group mb-3">
-              <input type="text" name="username" class="form-control" placeholder="Username" required value="<?php if(isset($_COOKIE["user_login"])) { echo $_COOKIE["user_login"]; } ?>">
+              <input type="text" name="username" class="form-control" placeholder="Email" required value="<?php if(isset($_COOKIE["user_login"])) { echo $_COOKIE["user_login"]; } ?>">
               <div class="input-group-append">
                 <div class="input-group-text">
                   <span class="fas fa-envelope"></span>

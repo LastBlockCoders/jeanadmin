@@ -21,7 +21,7 @@ if(isset($_POST['submit']))
   $mobilenum=$_POST['mobilenum'];
   $details=$_POST['details'];
   $cid=$_SESSION['edid'];
-  $query=mysqli_query($con, "update  tblcustomers set Name='$name',Email='$email',MobileNumber='$mobilenum',Details='$details' where ID='$cid' ");
+  $query=mysqli_query($con, "update  tblcustomers set name='$name',email='$email',mobilenumber='$mobilenum' where id='$cid' ");
   if ($query) {
     echo "<script type='text/javascript'>
     Swal.fire({
@@ -59,15 +59,15 @@ if(isset($_POST['submit']))
     <div class="card-body">
       <div class="form-group"> 
         <label for="exampleInputEmail1">Name</label> 
-        <input type="text" class="form-control" id="name" name="name"  value="<?php  echo $row['Name'];?>" required="true"> 
+        <input type="text" class="form-control" id="name" name="name"  value="<?php  echo $row['name'];?>" required="true"> 
       </div> 
       <div class="form-group"> 
         <label for="exampleInputPassword1">Email</label> 
-        <input type="text" id="email" name="email" class="form-control"  value="<?php  echo $row['Email'];?>" required="true"> 
+        <input type="text" id="email" name="email" class="form-control"  value="<?php  echo $row['email'];?>" required="true"> 
       </div>
       <div class="form-group"> 
         <label for="exampleInputPassword1">Mobile Number</label> 
-        <input type="text" id="mobilenum" name="mobilenum" class="form-control"  value="<?php  echo $row['MobileNumber'];?>" required="true"> 
+        <input type="text" id="mobilenum" name="mobilenum" class="form-control"  value="<?php  echo $row['mobilenumber'];?>" required="true"> 
       </div>
       <div class="form-group"> 
         <label for="exampleInputEmail1">Address</label> 
@@ -75,7 +75,7 @@ if(isset($_POST['submit']))
       </div>
       <div class="form-group"> 
         <label for="exampleInputPassword1">Creation Date</label> 
-        <input type="text" id="" name="" class="form-control"  value="<?php  echo $row['CreationDate'];?>" readonly='true'> 
+        <input type="text" id="" name="" class="form-control"  value="<?php  echo $row['created_at'];?>" readonly='true'> 
       </div>
       <?php
     } ?>

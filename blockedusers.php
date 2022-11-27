@@ -8,7 +8,7 @@ include('includes/dbconnection.php');
  <table  class="table table-bordered table-striped">
   <thead>
     <tr>
-      <th class="text-center">Names</th>
+      <th class="text-center">Name</th>
       <th class="text-center">Mobile</th>
       <th class="text-center">Email</th>
       <th class="text-center">Permission</th>
@@ -28,8 +28,8 @@ include('includes/dbconnection.php');
     foreach($results as $row)
       {?>
        <tr>
-         <td><a href="#"><?php  echo htmlentities($row->name);?> <?php  echo htmlentities($row->lastname);?></a></td>
-         <td class="text-left"><?php  echo htmlentities($row->mobile);?></td>
+         <td><a href="#"><?php  echo htmlentities($row->firstname);?> <?php  echo htmlentities($row->lastname);?></a></td>
+         <td class="text-left"><?php  echo htmlentities($row->phone);?></td>
          <td class="text-left" ><?php  echo htmlentities($row->email);?></td>
          <td class="text-left"><?php  echo htmlentities($row->permission);?></td>
          <td class="text-left">

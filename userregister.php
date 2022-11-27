@@ -261,7 +261,7 @@ if(isset($_GET['blockid']))
                         {               ?>
                          <tr>
                           <td class="text-left"><?php  echo htmlentities($row->name);?> <?php  echo htmlentities($row->lastname);?></td>
-                          <td class="text-left">0<?php  echo htmlentities($row->mobile);?></td>
+                          <td class="text-left">0<?php  echo htmlentities($row->phone);?></td>
                           <td class="text-left" ><?php  echo htmlentities($row->email);?></td>
                           <td class="text-left"><?php  echo htmlentities($row->permission);?></td>
                           <td class="text-left">

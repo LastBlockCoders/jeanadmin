@@ -102,7 +102,7 @@ else{
                   </thead> 
                   <tbody>
                     <?php
-                    $ret=mysqli_query($con,"select * from tgallery");
+                    $ret=mysqli_query($con,"select * from tblgallery");
                     $cnt=1;
                     while ($row=mysqli_fetch_array($ret)) {
 

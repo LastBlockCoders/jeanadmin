@@ -93,20 +93,20 @@ if (isset($_SESSION['sid'])) {
                   </thead> 
                   <tbody>
                     <?php
-                    $ret=mysqli_query($con,"select * from  tblappointment where Status='0'");
+                    $ret=mysqli_query($con,"select * from  tblappointment where status='0'");
                     $cnt=1;
                     while ($row=mysqli_fetch_array($ret)) {
 
                       ?>
 
                       <tr> 
-                        <td><?php  echo GetServiceName($con,$row['Services']);?></td>
+                        <td><?php  echo GetServiceName($con,$row['services']);?></td>
                         <td><a class="myLink" href= <?php $str = $row['phone'];
                               $number= ltrim($str, "0");
                                echo "https://wa.me/27{$number}?text=Good%20day%2C%20This%20is%20Jeans%20Mobile%20Beauty%20and%20Wellness";?>>
-                               <?php  echo $row['Name'];?></a></td>
-                        <td><?php  echo $row['AptDate'];?></td> 
-                        <td><?php  echo $row['AptTime'].' - '.$row['end_time'];?></td>
+                               <?php  echo $row['name'];?></a></td>
+                        <td><?php  echo $row['apt_date'];?></td> 
+                        <td><?php  echo $row['start_time'].' - '.$row['end_time'];?></td>
                         <td><a class="myLink" href=  <?php 
                         $address = $row['location'];
                           $removeSpace = str_replace(" ","+",$address);
@@ -115,7 +115,7 @@ if (isset($_SESSION['sid'])) {
                         ?>> <?php  echo $row['location'];?></a></td>
                         <td><?php  echo $row['total'];?></td> 
                         <td>
-                          <button class="viewBtn"><a href="#" class=" edit_data" id="<?php echo  $row['ID']; ?>" title="click for edit">View</a></button></td> 
+                          <button class="viewBtn"><a href="#" class=" edit_data" id="<?php echo  $row['id']; ?>" title="click for edit">View</a></button></td> 
                       </tr>  
                       <?php 
                    

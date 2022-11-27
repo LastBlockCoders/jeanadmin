@@ -108,9 +108,9 @@ if (isset($_SESSION['sid'])) {
                         <td><a class="myLink" href= <?php $str = $row['Phonenumber'];
                               $number= ltrim($str, "0");
                                echo "https://wa.me/27{$number}?text=Good%20day%2C%20This%20is%20Jeans%20Mobile%20Beauty%20and%20Wellness";?>>
-                               <?php  echo $row['Name'];?></a></td>
-                        <td><?php  echo $row['AptDate'];?></td> 
-                        <td><?php  echo $row['AptTime'].' - '.$row['end_time'];?></td>
+                               <?php  echo $row['name'];?></a></td>
+                        <td><?php  echo $row['apt_date'];?></td> 
+                        <td><?php  echo $row['start_time'].' - '.$row['end_time'];?></td>
                         <td><a class="myLink" href=  <?php 
                         $address = $row['location'];
                           $removeSpace = str_replace(" ","+",$address);
@@ -119,7 +119,7 @@ if (isset($_SESSION['sid'])) {
                         ?>> <?php  echo $row['location'];?></a></td>
                         <td><?php  echo 'R '.$row['total'];?></td> 
                         <td>
-                          <button class="viewBtn"><a href="#" class=" edit_data" id="<?php echo  $row['ID']; ?>" title="click for edit">View</a></button></td> 
+                          <button class="viewBtn"><a href="#" class=" edit_data" id="<?php echo  $row['id']; ?>" title="click for edit">View</a></button></td> 
                       </tr>    
                         <?php 
                         $cnt=$cnt+1;

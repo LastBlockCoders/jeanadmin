@@ -93,7 +93,7 @@ if (isset($_SESSION['sid'])) {
                   </thead> 
                   <tbody>
                     <?php
-                    $ret=mysqli_query($con,"select * from  tblappointment where Status='2';");
+                    $ret=mysqli_query($con,"select * from  tblappointment where status='2';");
                     $cnt=1;
                     while ($row=mysqli_fetch_array($ret)) {
 
@@ -101,16 +101,16 @@ if (isset($_SESSION['sid'])) {
 
                       <tr> 
                         <td><?php  echo GetServiceName($con,$row['services']);?></td>
-                        <td><?php  echo $row['AptDate'];?></td> 
-                        <td><?php  echo $row['AptTime'];?></td>
+                        <td><?php  echo $row['apt_date'];?></td> 
+                        <td><?php  echo $row['start_time'];?></td>
                         <td><a class="myLink" href=  <?php 
                         $address = $row['location'];
                           $removeSpace = str_replace(" ","+",$address);
                           $url = str_replace(",","%2C",$removeSpace);
                           echo "https://www.google.com/maps/search/?api=1&query={$url}";
                         ?>> <?php  echo $row['location'];?></a></td>
-                        <td><?php  echo $row['loc_distance'].' km away and '.$row['loc_time'].' minutes drive';?></td> 
-                        <td><button class="viewBtn"><a href="#" class=" edit_data" id="<?php echo  $row['ID']; ?>" title="click for edit">View</a></td> 
+                        <td><?php  echo $row['loc_distance'].' km away and '.$row['time_travel'].' minutes drive';?></td> 
+                        <td><button class="viewBtn"><a href="#" class=" edit_data" id="<?php echo  $row['id']; ?>" title="click for edit">View</a></td> 
                       </tr>   
                       <?php 
                       $cnt=$cnt+1;

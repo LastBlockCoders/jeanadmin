@@ -24,7 +24,7 @@ if(isset($_POST['update']))
   $name=$_POST['name'];
   $lastname=$_POST['lastname'];
   $email=$_POST['email'];
-  $sql="update tblusers set name=:name,username=:username,lastname=:lastname,email=:email,mobile=:mobile,permission=:permission where id=:eid";
+  $sql="update tblusers set firstname=:name,username=:username,lastname=:lastname,email=:email,phone=:mobile,permission=:permission where id=:eid";
   $query=$dbh->prepare($sql);
   $query->bindParam(':name',$name,PDO::PARAM_STR);
   $query->bindParam(':lastname',$lastname,PDO::PARAM_STR);
@@ -34,8 +34,14 @@ if(isset($_POST['update']))
   $query->bindParam(':mobile',$mobile,PDO::PARAM_STR);
   $query->bindParam(':eid',$eid,PDO::PARAM_STR);
   $query->execute();
-  echo '<script>alert("updated successfuly")</script>';
-  echo "<script>window.location.href ='userregister.php'</script>";
+  echo "Swal.fire({
+    icon: 'success',
+    title: 'Details Updated',
+    showConfirmButton: false,
+    timer: 2000
+    });
+    setTimeout(function(){window.open('userregister.php','_self')},1500);
+    </script>";
 }
 ?>
 <div class="card-body">
@@ -57,7 +63,7 @@ if(isset($_POST['update']))
         <div class="row">
           <div class="form-group col-md-6 ">
             <label for="name">First Name</label>
-            <input type="text" name="name" class="form-control" id="name" value="<?php echo $row->name; ?>" required>
+            <input type="text" name="name" class="form-control" id="name" value="<?php echo $row->firstname; ?>" required>
           </div>
           <div class="form-group col-md-6 ">
             <label for="lastname">Last Name</label>
@@ -77,7 +83,7 @@ if(isset($_POST['update']))
         <div class="row">
           <div class="form-group col-md-6 ">
             <label for="mobile">Mobile</label>
-            <input type="text" name="mobile" class="form-control" id="mobile" value="<?php echo $row->mobile; ?>" required>
+            <input type="text" name="mobile" class="form-control" id="mobile" value="<?php echo $row->phone; ?>" required>
           </div>
           <div class="form-group col-md-6 ">
             <label for="permission">Permission</label>

@@ -72,7 +72,7 @@ if (!isset($_SESSION['sid'])) {
                         } else { ?>
                           <img class="rounded-circle mt-5"  src="staff_images/<?php  echo $row->userimage;?>" width="90">
                           <?php 
-                        } ?><span class="font-weight-bold"><?php  echo $row->name;?> <?php  echo $row->lastname;?></span><span class="text-black-50"><?php  echo $row->email;?></span><span><?php  echo $row->mobilenumber;?></span>
+                        } ?><span class="font-weight-bold"><?php  echo $row->name;?> <?php  echo $row->lastname;?></span><span class="text-black-50"><?php  echo $row->email;?></span><span><?php  echo $row->phone;?></span>
                         <div class="mt-3">
                           <a href="update_userimage.php?id=<?php echo $id;?>">Edit Image</a>
                         </div>
@@ -86,12 +86,12 @@ if (!isset($_SESSION['sid'])) {
                           <h6 class="text-right">Edit Profile</h6>
                         </div>
                         <div class="row mt-2">
-                          <div class="col-md-6"><input type="text" class="form-control" name="firstname" value="<?php echo $row->name; ?>" required='true'></div>
+                          <div class="col-md-6"><input type="text" class="form-control" name="firstname" value="<?php echo $row->firstname; ?>" required='true'></div>
                           <div class="col-md-6"><input type="text" class="form-control" value="<?php echo $row->lastname; ?> " name="lastname" required></div>
                         </div>
                         <div class="row mt-3">
                           <div class="col-md-6"><input type="text" class="form-control" name="email" value="<?php  echo $row->email;?>" required></div>
-                          <div class="col-md-6"><input type="text" class="form-control" value="0<?php echo $row->mobile; ?>" name="mobile" required></div>
+                          <div class="col-md-6"><input type="text" class="form-control" value="0<?php echo $row->phone; ?>" name="mobile" required></div>
                         </div>
                         <div class="row mt-3">
                           <div class="col-md-6">

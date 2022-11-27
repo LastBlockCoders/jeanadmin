@@ -66,12 +66,12 @@ if(isset($_POST['submit']))
     </script>";
     }
 
-    $sql="INSERT INTO  tblusers(name,username,email,password,status,mobile,sex,lastname,permission) VALUES(:name,:username,:email,:password,:status,:mobile,:sex,:lastname,:permission)";
+    $sql="INSERT INTO  tblusers(firstname,lastname,username,email,phone,permission,password,sex, userimage, status) VALUES(:name,:surname,:username,:email,:phone,:permission,:password,:sex,:userimage,:status)";
     $query = $dbh->prepare($sql);
-    $query->bindParam(':name',$name,PDO::PARAM_STR);
+    $query->bindParam(':firstname',$name,PDO::PARAM_STR);
     $query->bindParam(':lastname',$lastname,PDO::PARAM_STR);
     $query->bindParam(':sex',$sex,PDO::PARAM_STR);
-    $query->bindParam(':mobile',$mobile,PDO::PARAM_STR);
+    $query->bindParam(':phone',$mobile,PDO::PARAM_STR);
     $query->bindParam(':status',$status,PDO::PARAM_STR);
     $query->bindParam(':username',$username,PDO::PARAM_STR);
     $query->bindParam(':email',$email,PDO::PARAM_STR);
@@ -130,7 +130,7 @@ if(isset($_POST['submit']))
         <select name="permission" class="form-control" required>
           <option value="Super User">Super User</option>
           <option value="Admin">Admin</option>
-          <option value="User">User</option>
+          <option value="Secretary">Secretary</option>
         </select>
       </div>
       <div class="form-group col-4">
@@ -138,18 +138,18 @@ if(isset($_POST['submit']))
         <input type="email" name="email" class="form-control"  placeholder="Enter email" value="" required>
       </div>
       <div class="form-group col-4">
-        <label for="exampleInputEmail1">Mobile</label>
-        <input type="text" name="mobile" class="form-control"  placeholder="Enter mobile" value="" required>
+        <label for="exampleInputEmail1">Phone</label>
+        <input type="text" name="mobile" class="form-control"  placeholder="Enter mobile number" value="" required>
       </div>
     </div>
     
     <div class="row">
       <div class="form-group col-md-4">
-        <label for="feFirstName">password</label>
+        <label for="feFirstName">Password</label>
         <input type="password" name="password" class="form-control" placeholder="password" value="" required>
       </div>
       <div class="form-group col-md-4">
-        <label for="feLastName">confirm password</label>
+        <label for="feLastName">Confirm password</label>
         <input type="password" name="password1" class="form-control" placeholder="confirm password" value="" required>
       </div>
       <div class="form-group col-4">

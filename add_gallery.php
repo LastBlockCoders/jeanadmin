@@ -24,7 +24,7 @@ else{
     move_uploaded_file ($Mimage_tmp,"../gallery/{$g_image}");
 
 
-    $sql = "INSERT INTO tgallery(name) VALUES ('$g_image')";
+    $sql = "INSERT INTO tblgallery(name) VALUES ('$g_image')";
 
     $gallery = mysqli_query($con, $sql);
 
