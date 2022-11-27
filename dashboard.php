@@ -88,7 +88,7 @@ if (!isset($_SESSION['sid'])) {
                         <div class="col-lg-3 col-6">
                             <!-- small box -->
                             <div class="small-box bg-danger">
-                                <?php $query4=mysqli_query($con,"Select * from tblappointment where Status='2'");
+                                <?php $query4=mysqli_query($con,"Select * from tblappointment where Status='0'");
                                 $totalrejapt=mysqli_num_rows($query4);
                                 ?>
                                 <div class="inner">
@@ -195,7 +195,7 @@ if (!isset($_SESSION['sid'])) {
                                        if (strlen($tseven==0)) {
                                         echo "R ".$pop2;
                                     } else{ 
-                                        echo "R ".$tseven;
+                                        echo "R ".$tseven =0;
                                     }
                                     ?> 
                                 </h3>
@@ -223,7 +223,7 @@ if (!isset($_SESSION['sid'])) {
                             }
                             ?>
                             <div class="inner">
-                                <h3><?php echo "R ".$totalsale;?></h3>
+                                <h3><?php echo "R ".$totalsale =0 ;?></h3>
 
                                 <p>Call-in Revenue</p>
                             </div>

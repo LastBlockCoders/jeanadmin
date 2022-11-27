@@ -2,10 +2,16 @@
 include_once 'auth/session.php';
 include 'includes/dbconnection.php';
 
-if (!isset($_SESSION['sid'])) {
-  header('location: logout.php');
-  exit();
-} 
+if (isset($_SESSION['sid'])) {
+  if(isset($_SESSION['permission'])){
+    if (($_SESSION['permission'] != "Superuser") && ($_SESSION['permission'] != "Admin")) {
+    header('location: logout.php');
+    exit();
+    }
+    }
+}else{
+  header('location:logout.php');
+}
 ?>
 <!DOCTYPE html>
 <html>

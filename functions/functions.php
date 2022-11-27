@@ -437,12 +437,12 @@ function Reply_to_customer($con, $status, $cid, $name, $email, $service, $date, 
 
 
 
-if($status == '0'){
-    $message = $messageReject;
-} else{
-    $message = $messageAccept;
-}
-        
+    if($status == '0'){
+        $message = $messageReject;
+    } else{
+        $message = $messageAccept;
+    }
+            
         $mail = new PHPMailer();
         $mail->IsSMTP();
         $mail->Mailer = "smtp";
@@ -614,7 +614,7 @@ function signout(){
 
 #fix
 function GetServiceName($con, $id){
-    $serv= mysqli_query($con,"SELECT ServiceName FROM  tblservices WHERE id = $id;");
+    $serv= mysqli_query($con,"SELECT ServiceName FROM  tblservices WHERE ID = $id;");
     if($serv){
         while ($row = mysqli_fetch_row($serv)) {
            return $row[0];

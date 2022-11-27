@@ -7,7 +7,8 @@ if (isset($_SESSION['sid'])) {
   header('location: logout.php');
   exit();
 }  
-else{
+else
+
   if(isset($_POST['submit']))
   {
     $cat_id = $_POST['category'];
@@ -144,5 +145,4 @@ else{
   <?php @include("includes/foot.php"); ?>
 </body>
 </html>
-<?php
-}?>
+

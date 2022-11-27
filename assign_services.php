@@ -2,32 +2,40 @@
 include_once 'auth/session.php';
 include_once 'auth/db.php';
 
-if (!isset($_SESSION['sid'])) {
-  header('location: logout.php');
-  exit();
-} 
+if (isset($_SESSION['sid'])) {
+  if(isset($_SESSION['permission'])){
+    if (($_SESSION['permission'] != "Superuser") && ($_SESSION['permission'] != "Admin")) {
+    header('location: logout.php');
+    exit();
+    }
+    }
+}else{
+  header('location:logout.php');
+}
 
 if(isset($_POST['save'])){
   $uid=$_SESSION['gid'];
   $invoiceid=mt_rand(100000000, 999999999);
   $sid=$_POST['sids'];
   $reci=$_POST['reci'];
+
+$newArray = array_diff($reci, array("0"));
+  
   for($i=0;$i<count($sid);$i++){
    $svid=$sid[$i];
-   for($j=0;$j<count($reci);$j++){
-    $rid = $reci[$j];
-    if($rid>0){
+    $rid = $newArray[$i];
+    
    $ret=mysqli_query($con,"insert into tblinvoice(Userid,ServiceId,recipients,BillingId) values('$uid','$svid','$rid','$invoiceid');");
    echo "<script type='text/javascript'>
    Swal.fire({
      icon: 'success',
      title: 'Invoice Generated',
-     text: '$invoiceid',
+     text: '#'.'$invoiceid',
      showConfirmButton: false,
      timer: 3000
      });
      setTimeout(function(){window.open('invoices.php','_self')},1000);</script>";
-   }}}
+   }
 }
 ?>
 <div class="card-body">

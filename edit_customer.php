@@ -2,9 +2,18 @@
 include_once 'auth/session.php';
 include_once 'auth/db.php';
 include('includes/dbconnection.php');
-if (strlen($_SESSION['sid']==0)) {
+
+if (isset($_SESSION['sid'])) {
+  if(isset($_SESSION['permission'])){
+    if (($_SESSION['permission'] != "Superuser") && ($_SESSION['permission'] != "Admin")) {
+    header('location: logout.php');
+    exit();
+    }
+    }
+}else{
   header('location:logout.php');
-} 
+}
+
 if(isset($_POST['submit']))
 {
   $name=$_POST['name'];

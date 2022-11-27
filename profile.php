@@ -1,8 +1,8 @@
 <?php 
-session_start();
-error_reporting(0);
+include_once 'auth/session.php';
 include('includes/dbconnection.php');
-if (strlen($_SESSION['sid']==0)) {
+
+if (!isset($_SESSION['sid'])) {
   header('location:logout.php');
 } else{
   if(isset($_POST['submit']))

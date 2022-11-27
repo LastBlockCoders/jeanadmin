@@ -3,7 +3,7 @@ include_once 'auth/session.php';
 include_once 'auth/db.php';
 include('includes/dbconnection.php');
 
-if (strlen($_SESSION['sid']==0)) {
+if (!isset($_SESSION['sid'])) {
   header('location:logout.php');
 } else{
   if(isset($_POST['submit']))

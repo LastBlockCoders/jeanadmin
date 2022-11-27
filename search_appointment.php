@@ -1,6 +1,17 @@
 <?php
-session_start();
+include_once 'auth/session.php';
+include_once 'auth/db.php';
 
+if (isset($_SESSION['sid'])) {
+  if(isset($_SESSION['permission'])){
+    if (($_SESSION['permission'] != "Superuser") && ($_SESSION['permission'] != "Admin")) {
+    header('location: logout.php');
+    exit();
+    }
+    }
+}else{
+  header('location:logout.php');
+}
 include('includes/dbconnection.php');
 // if (strlen($_SESSION['bpmsaid']==0)) {
 //   header('location:logout.php');

@@ -25,7 +25,7 @@ include_once 'auth/db.php';
         $ret1=mysqli_query($con,"select ID,Name from  tblappointment where Status='2'");
         $num=mysqli_num_rows($ret1);
         ?>  
-        <span class="badge badge-warning navbar-badge" style="font-size: 13px;"><?php echo $num;?></span>
+        <span class="badge badge-warning navbar-badge" style="font-size: 13px;"><?php echo $num ?></span>
       </a>
       <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
         <span class="dropdown-item dropdown-header"><?php echo $num;?> Notifications</span>

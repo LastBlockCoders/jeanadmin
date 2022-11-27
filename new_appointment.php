@@ -2,10 +2,16 @@
 include_once 'auth/session.php';
 include_once 'includes/dbconnection.php';
 
-if (!isset($_SESSION['sid'])) {
-  header('location: logout.php');
-  exit();
-} 
+if (isset($_SESSION['sid'])) {
+  if(isset($_SESSION['permission'])){
+    if (($_SESSION['permission'] != "Superuser") && ($_SESSION['permission'] != "Admin")) {
+    header('location: logout.php');
+    exit();
+    }
+    }
+}else{
+  header('location:logout.php');
+}
 ?>
 
 <!DOCTYPE html>
@@ -87,17 +93,22 @@ if (!isset($_SESSION['sid'])) {
                   </thead> 
                   <tbody>
                     <?php
-                    $ret=mysqli_query($con,"select *from  tblappointment where Status='2'");
+                    $ret=mysqli_query($con,"select * from  tblappointment where Status='2';");
                     $cnt=1;
                     while ($row=mysqli_fetch_array($ret)) {
 
                       ?>
 
                       <tr> 
-                        <td><?php  echo GetServiceName($con,$row['Services']);?></td>
+                        <td><?php  echo GetServiceName($con,$row['services']);?></td>
                         <td><?php  echo $row['AptDate'];?></td> 
                         <td><?php  echo $row['AptTime'];?></td>
-                        <td><?php  echo $row['location'];?></td>
+                        <td><a class="myLink" href=  <?php 
+                        $address = $row['location'];
+                          $removeSpace = str_replace(" ","+",$address);
+                          $url = str_replace(",","%2C",$removeSpace);
+                          echo "https://www.google.com/maps/search/?api=1&query={$url}";
+                        ?>> <?php  echo $row['location'];?></a></td>
                         <td><?php  echo $row['loc_distance'].' km away and '.$row['loc_time'].' minutes drive';?></td> 
                         <td><button class="viewBtn"><a href="#" class=" edit_data" id="<?php echo  $row['ID']; ?>" title="click for edit">View</a></td> 
                       </tr>   
@@ -125,7 +136,7 @@ if (!isset($_SESSION['sid'])) {
 			Swal.fire({
 				icon: 'success',
 				title: 'Success',
-				text: 'New Service Added',
+				text: 'Request Proccessed',
         showConfirmButton: false,
 				timer: 2000
 			  });

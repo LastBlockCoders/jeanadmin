@@ -3,10 +3,16 @@ include_once 'auth/session.php';
 include 'includes/dbconnection.php';
 include 'auth/db.php';
 
-if (!isset($_SESSION['sid'])) {
-  header('location: logout.php');
-  exit();
-} 
+if (isset($_SESSION['sid'])) {
+  if (($_SESSION['permission'] != "Secretary")) {
+    header('location: logout.php');
+    exit();
+    }
+}
+else{
+  header('location:logout.php');
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -53,7 +59,7 @@ if (!isset($_SESSION['sid'])) {
                   <div class="modal-dialog ">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h5 class="modal-title">Delete Marketing Images</h5>
+                        <h5 class="modal-title">Delete Promotion Image</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
@@ -95,22 +101,24 @@ if (!isset($_SESSION['sid'])) {
                     </tr> 
                   </thead> 
                   <tbody>
-                    <?php
-                    $ret=mysqli_query($con,"SELECT * FROM 'marketingimgs'");
-                    $cnt=1;
-                    while ($row=mysqli_fetch_array($ret)) {
+                  
+
+                      <tr>
+                      <?php
+                        $ret=mysqli_query($con,"select * from timages");
+                        $cnt=1;
+                        while ($row=mysqli_fetch_array($ret)) {
 
                       ?>
-
-                      <tr> 
                         <th scope="row"><?php echo $cnt;?></th> 
-                        <td><?php  echo $row['image'];?></td> 
+                        <td><img src="marketing/<?php echo $row['name'];?>" width="100%" height="100px" /></td> 
                         <td>
-                          <a href="#" class=" btn btn-sm editBtn edit_data" id="<?php echo  $row['id']; ?>" title="click for edit">Edit</a>
-                        </tr>   
-                        <?php 
+                          <a href="#" class=" btn btn-sm deleteBtn edit_data" id="<?php echo  $row['id']; ?>" title="click for edit">Delete</a>
+                          <?php 
                         $cnt=$cnt+1;
                       }?>
+                        </tr>   
+                        
                     </tbody>
                   </table>
                 </div>

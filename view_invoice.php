@@ -1,6 +1,17 @@
 <?php
-session_start();
+include_once 'auth/session.php';
 include('auth/db.php');
+
+if (isset($_SESSION['sid'])) {
+	if(isset($_SESSION['permission'])){
+	  if (($_SESSION['permission'] != "Superuser") && ($_SESSION['permission'] != "Admin")) {
+	  header('location: logout.php');
+	  exit();
+	  }
+	  }
+  }else{
+	header('location:logout.php');
+  }
 ?>
 <div id="page-wrapper">
 	<div class="main-page">
@@ -9,7 +20,7 @@ include('auth/db.php');
 			<div class="table-responsive bs-example widget-shadow">
 				<?php
 				$invid=$_POST['edit_id'];
-				$ret=mysqli_query($con,"select DISTINCT  tblinvoice.PostingDate,tblcustomers.Name,tblcustomers.Email,tblcustomers.MobileNumber
+				$ret=mysqli_query($con,"select DISTINCT  tblinvoice.PostingDate, tblcustomers.Name,tblcustomers.Email,tblcustomers.MobileNumber
 					from  tblinvoice 
 					join tblcustomers on tblcustomers.ID=tblinvoice.Userid 
 					where tblinvoice.BillingId='$invid'");
@@ -30,7 +41,10 @@ include('auth/db.php');
 							<th>Email </th> 
 							<td><?php echo $row['Email']?></td>
 						</tr> 
-					
+						<tr>
+							<th colspan="6">Address</th>
+							<td> N/A </td>	
+						</tr>
 					</table> 
 					<?php 
 				}?>
@@ -46,7 +60,7 @@ include('auth/db.php');
 
 					<?php
 					
-					$ret=mysqli_query($con,"select tblservices.ServiceName,tblservices.Cost  
+					$ret=mysqli_query($con,"select tblinvoice.recipients,tblservices.ServiceName,tblservices.Cost  
 						from  tblinvoice 
 						join tblservices on tblservices.ID=tblinvoice.ServiceId 
 						where tblinvoice.BillingId='$invid'");
@@ -57,7 +71,7 @@ include('auth/db.php');
 						<tr>
 							<th><?php echo $cnt;?></th>
 							<td><?php echo $row['ServiceName']?></td>	
-							<td><?php echo 'R '.$subtotal=$row['Cost']?></td>
+							<td><?php echo 'R '.$subtotal=$row['Cost']*$row['recipients']?></td>
 						</tr>
 						<?php 
 						

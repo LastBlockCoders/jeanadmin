@@ -1,8 +1,9 @@
 <?php
 include_once 'auth/session.php';
 include_once 'auth/db.php';
-
 include('includes/dbconnection.php');
+
+
 if(isset($_POST['login']))
 {
   $password1=($_POST['password']); 

@@ -1,7 +1,19 @@
 <?php 
-session_start();
-error_reporting(0);
+include_once 'auth/session.php';
+include_once 'auth/db.php';
 include('includes/dbconnection.php');
+
+if (isset($_SESSION['sid'])) {
+  if(isset($_SESSION['permission'])){
+    if (($_SESSION['permission'] != "Superuser")) {
+    header('location: logout.php');
+    exit();
+    }
+    }
+}else{
+  header('location:logout.php');
+}
+
 if(isset($_POST['submit']))
 {
   $password1=($_POST['password']); 

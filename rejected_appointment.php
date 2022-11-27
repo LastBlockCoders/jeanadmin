@@ -1,9 +1,18 @@
 <?php
-session_start();
+include_once 'auth/session.php';
+include_once 'auth/db.php';
 include('includes/dbconnection.php');
-// if (strlen($_SESSION['bpmsaid']==0)) {
-//   header('location:logout.php');
-// } 
+
+if (isset($_SESSION['sid'])) {
+  if(isset($_SESSION['permission'])){
+    if (($_SESSION['permission'] != "Superuser") && ($_SESSION['permission'] != "Admin")) {
+    header('location: logout.php');
+    exit();
+    }
+    }
+}else{
+  header('location:logout.php');
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -92,10 +101,18 @@ include('includes/dbconnection.php');
 
                       <tr> 
                         <td><?php  echo GetServiceName($con,$row['Services']);?></td>
-                        <td><?php  echo $row['Name'];?></td>
+                        <td><a class="myLink" href= <?php $str = $row['phone'];
+                              $number= ltrim($str, "0");
+                               echo "https://wa.me/27{$number}?text=Good%20day%2C%20This%20is%20Jeans%20Mobile%20Beauty%20and%20Wellness";?>>
+                               <?php  echo $row['Name'];?></a></td>
                         <td><?php  echo $row['AptDate'];?></td> 
                         <td><?php  echo $row['AptTime'].' - '.$row['end_time'];?></td>
-                        <td><?php  echo $row['location'];?></td>
+                        <td><a class="myLink" href=  <?php 
+                        $address = $row['location'];
+                          $removeSpace = str_replace(" ","+",$address);
+                          $url = str_replace(",","%2C",$removeSpace);
+                          echo "https://www.google.com/maps/search/?api=1&query={$url}";
+                        ?>> <?php  echo $row['location'];?></a></td>
                         <td><?php  echo $row['total'];?></td> 
                         <td>
                           <button class="viewBtn"><a href="#" class=" edit_data" id="<?php echo  $row['ID']; ?>" title="click for edit">View</a></button></td> 

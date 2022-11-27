@@ -49,57 +49,8 @@
             </p>
           </a>
         </li>
+        <?php if (($_SESSION['permission'] == "Admin")|| ($_SESSION['permission'] == "Superuser")) echo '
         <li class="nav-item has-treeview">
-          <a href="#" class="nav-link">
-            <i class="nav-icon fa fa-shopping-basket"></i>
-            <p>
-              Services
-              <i class="right fas fa-angle-left"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="add_service.php" class="nav-link">
-                <i class="fa fa-plus nav-icon"></i>
-                <p>Add Services</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="manage_service.php" class="nav-link">
-                <i class="fa fa-pencil-square-o nav-icon"></i>
-                <p>Manage Services</p>
-              </a>
-            </li>
-          </ul>
-        </li>
-        <li class="nav-item has-treeview">
-          <a href="#" class="nav-link">
-            <i class="nav-icon fas fa fa-users"></i>
-            <p>
-              Call-In Clients
-              <i class="right fas fa-angle-left"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview">
-           <li class="nav-item">
-            <a href="add_customer.php" class="nav-link">
-              <i class="fa fa-plus nav-icon" aria-hidden="true"></i>
-              <p>
-                Add Client
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="customer_list.php" class="nav-link">
-            <i class="fa fa-server nav-icon" aria-hidden="true"></i>
-              <p>
-                View List
-              </p>
-            </a>
-          </li>
-        </ul>
-      </li>
-      <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
           <i class="nav-icon fa fa-calendar"></i>
           <p>
@@ -134,7 +85,109 @@
             </a>
           </li>
         </ul>
+      </li>';?>
+        <li class="nav-item has-treeview">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fa fa-shopping-basket"></i>
+            <p>
+              Services
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="add_service.php" class="nav-link">
+                <i class="fa fa-plus nav-icon"></i>
+                <p>Add Services</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="manage_service.php" class="nav-link">
+                <i class="fa fa-pencil-square-o nav-icon"></i>
+                <p>Manage Services</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <?php if (($_SESSION['permission'] == "Secretary")|| ($_SESSION['permission'] == "Superuser")) echo '
+        <li class="nav-item has-treeview">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fa fa-picture-o"></i>
+            <p>
+              Marketing
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="add_marketing.php" class="nav-link">
+                <i class="fa fa-plus nav-icon"></i>
+                <p>Add images</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="view_marketing.php" class="nav-link">
+                <i class="fa fa-pencil-square-o nav-icon"></i>
+                <p>Manage Images</p>
+              </a>
+            </li>
+          </ul>
+        </li>';
+        ?>
+        <?php if (($_SESSION['permission'] == "Secretary") || ($_SESSION['permission'] == "Superuser")) echo '
+        <li class="nav-item has-treeview">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fa fa-picture-o"></i>
+            <p>
+              Client Gallery
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="add_gallery.php" class="nav-link">
+                <i class="fa fa-plus nav-icon"></i>
+                <p>Add images</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="view_gallery.php" class="nav-link">
+                <i class="fa fa-pencil-square-o nav-icon"></i>
+                <p>Manage Gallery</p>
+              </a>
+            </li>
+          </ul>
+        </li>';
+        ?>
+        <?php if (($_SESSION['permission'] == "Superuser") || ($_SESSION['permission'] == "Admin")) echo '
+        <li class="nav-item has-treeview">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa fa-users"></i>
+            <p>
+              Call-In Clients
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+           <li class="nav-item">
+            <a href="add_customer.php" class="nav-link">
+              <i class="fa fa-plus nav-icon" aria-hidden="true"></i>
+              <p>
+                Add Client
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="customer_list.php" class="nav-link">
+            <i class="fa fa-server nav-icon" aria-hidden="true"></i>
+              <p>
+                View List
+              </p>
+            </a>
+          </li>
+        </ul>
       </li>
+    
       <li class="nav-item has-treeview">
         <a href="invoices.php" class="nav-link">
           <i class="nav-icon fa fa-credit-card"></i>
@@ -159,17 +212,20 @@
             Invoice
           </p>
         </a>
-      </li>
+      </li>';
+      ?>
+       <?php if (($_SESSION['permission'] == "Superuser")) echo '
       <li class="nav-header">USER MANAGEMENT</li>
       <!-- User Menu -->
       <li class="nav-item">
         <a href="userregister.php" class="nav-link">
          <i class="far fa-user nav-icon"></i>
          <p>
-          Register User
+          Users
          </p>
         </a>
       </li><!-- /.user menu -->
+      ';?>
     </ul>
 </nav>
 <!-- /.sidebar-menu -->

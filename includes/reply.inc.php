@@ -161,7 +161,7 @@ function Reply_to_customer($con, $status, $cid, $name, $remail, $service, $date,
             <td align="center" valign="top" style="padding:0;Margin:0;width:560px">
             <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
             <tr>
-            <td align="center" class="es-m-txt-c" style="padding:0;Margin:0"><h2 style="Margin:0;line-height:31px;mso-line-height-rule:exactly;font-family:arial, "helvetica neue", helvetica, sans-serif;font-size:26px;font-style:normal;color:white;background-color: green;">'.$reply.' !&nbsp;</h2><p>See you soon! Remember to have your card or cash on hand on the day of your appointment to make a payment</p></td>
+            <td align="center" class="es-m-txt-c" style="padding:0;Margin:0"><h2 style="Margin:0;line-height:31px;mso-line-height-rule:exactly;font-family:arial, "helvetica neue", helvetica, sans-serif;font-size:26px;font-style:normal;color:white;background-color: green;">'.$reply.' !&nbsp;</h2><p>See you soon! Remember to have your card or cash on hand on the day of your appointment to make a payment. Thank You.</p></td>
             </tr>
             </table></td>
             </tr>
@@ -364,7 +364,7 @@ function Reply_to_customer($con, $status, $cid, $name, $remail, $service, $date,
             <td align="center" valign="top" style="padding:0;Margin:0;width:560px">
             <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
             <tr>
-            <td align="center" class="es-m-txt-c" style="padding:0;Margin:0"><h2 style="Margin:0;line-height:31px;mso-line-height-rule:exactly;font-family:arial, "helvetica neue", helvetica, sans-serif;font-size:26px;font-style:normal;color:white;background-color: red;">'.$reply.' !&nbsp;</h2><p>We are so sorry about this outcome, please do try to request at another time we would appreciate it</p></td>
+            <td align="center" class="es-m-txt-c" style="padding:0;Margin:0"><h2 style="Margin:0;line-height:31px;mso-line-height-rule:exactly;font-family:arial, "helvetica neue", helvetica, sans-serif;font-size:26px;font-style:normal;color:white;background-color: red;">'.$reply.';</h2><p>Unfornuantely we could not accept your request, please do try to request on a different date and time we would appreciate it.</p></td>
             </tr>
             </table></td>
             </tr>

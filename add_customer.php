@@ -1,25 +1,31 @@
 <?php
-
+include_once 'auth/db.php';
 include_once 'includes/dbconnection.php';
 include_once 'auth/session.php';
 
-if (!isset($_SESSION['sid'])) {
-  header('location: logout.php');
-  exit();
-}  else{
+if (isset($_SESSION['sid'])) {
+  if(isset($_SESSION['permission'])){
+    if (($_SESSION['permission'] != "Superuser") && ($_SESSION['permission'] != "Admin")) {
+    header('location: logout.php');
+    exit();
+    }
+    }
+}else{
+  header('location:logout.php');
+}
+
   if(isset($_POST['submit']))
   {
     $name=$_POST['name'];
     $email=$_POST['email'];
     $mobilenum=$_POST['mobilenum'];
-    $gender=$_POST['gender'];
     $details=$_POST['details'];
-    $query=mysqli_query($con, "insert into  tblcustomers(Name,Email,MobileNumber,Gender,Details) value('$name','$email','$mobilenum','$details')");
+    $query=mysqli_query($con, "insert into  tblcustomers(Name,Email,MobileNumber,Details) value('$name','$email','$mobilenum','$details')");
     if ($query) {
       echo "<script type='text/javascript'>
       Swal.fire({
         icon: 'success',
-        title: 'Blocked Successfully!',
+        title: 'Client Added!',
         showConfirmButton: false,
         timer: 2000
         });
@@ -61,7 +67,7 @@ if (!isset($_SESSION['sid'])) {
               <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                   <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                  <li class="breadcrumb-item active">Add Customer</li>
+                  <li class="breadcrumb-item active">Add Call-in Client</li>
                 </ol>
               </div>
             </div>
@@ -76,7 +82,7 @@ if (!isset($_SESSION['sid'])) {
               <!-- general form elements -->
               <div class="card rounded" style="background: teal; color: white;">
                 <div class="card-header  rounded">
-                  <h3 class="card-title">Add Customer</h3>
+                  <h3 class="card-title">Add Call-in Client</h3>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
@@ -118,5 +124,4 @@ if (!isset($_SESSION['sid'])) {
     <?php @include("includes/foot.php"); ?>
   </body>
   </html>
-  <?php
-}?>
+ 

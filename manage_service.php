@@ -4,7 +4,7 @@ include('includes/dbconnection.php');
 
 if(isset($_SESSION['permission'])){
   if (($_SESSION['permission'] != "Superuser") && ($_SESSION['permission'] != "Admin")) {
-  header('location: dashboard.php?error=denied');
+  header('location: logout.php');
   exit();
   }
   }; 
