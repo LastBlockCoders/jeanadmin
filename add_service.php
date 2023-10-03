@@ -1,13 +1,19 @@
 <?php
+include_once 'auth/session.php';
 include_once 'auth/db.php';
 include_once 'includes/dbconnection.php';
 
  
 if (isset($_SESSION['sid'])) {
-  header('location: logout.php');
-  exit();
-}  
-else
+  if (($_SESSION['permission'] != "Secretary") && ($_SESSION['permission'] != "Superuser")) {
+    header('location: logout.php');
+    exit();
+    }
+}
+else{
+  header('location:logout.php');
+}
+ 
 
   if(isset($_POST['submit']))
   {
@@ -20,25 +26,11 @@ else
     $on_promo = $_POST['on_promo'];
     $query=mysqli_query($con, "insert into  tblservices(cat_id,name,description,price,promo_price,on_promo,duration) values($cat_id,'$name','$description',$price, $promo_price,$on_promo,$duration);");
     if ($query) {
-      echo "<script type='text/javascript'>
-			Swal.fire({
-				icon: 'success',
-				title: 'Success',
-				text: 'New Service Added',
-				timer: 2000
-			  });
-			</script>";
+     
     }
     else
     {
-      echo "<script type='text/javascript'>
-			Swal.fire({
-				icon: 'error',
-				title: 'Oops...',
-				text: 'Something went wrong',
-				timer: 2000
-			  });
-			</script>";    
+      
     }
   }
   ?>
@@ -84,7 +76,7 @@ else
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form role="form" method="post">
+                <form role="form" method="post" action = "includes/add_serv.inc.php">
                   <div class="card-body">
                     <div class="form-group">
                       <label for="exampleInputPassword1">Category</label>
@@ -144,6 +136,34 @@ else
       </section>
       <!-- /.content -->
     </div>
+    <?php
+    if(isset($_GET['error']))
+    {
+      if($_GET['error']== 'none'){
+        echo "<script type='text/javascript'>
+        Swal.fire({
+          icon: 'success',
+          title: 'Success',
+          text: 'New Service Added',
+          timer: 2000
+          });
+        </script>";
+      }
+      else if($_GET['error'] == 'somethingwentwrong'){
+        echo "<script type='text/javascript'>
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Something went wrong',
+          timer: 2000
+          });
+        </script>"; 
+      }
+    }
+
+
+
+?>
     <!-- /.content-wrapper -->
     <?php @include("includes/footer.php"); ?>
 

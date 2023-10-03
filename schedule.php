@@ -1,7 +1,6 @@
 <?php
 
 include_once 'auth/session.php';
-include_once 'auth/db.php';
 include_once 'includes/dbconnection.php';
 
 if (isset($_SESSION['sid'])) {
@@ -34,12 +33,12 @@ if (isset($_SESSION['sid'])) {
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 style="font-size: x-larger">Request History</h1>
+              <h1 style="font-size: x-larger">Schedule</h1>
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                <li class="breadcrumb-item active">Request History</li>
+                <li class="breadcrumb-item active">Today's Appointments</li>
               </ol>
             </div>
           </div>
@@ -53,57 +52,55 @@ if (isset($_SESSION['sid'])) {
             <div class="col-12">
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title">All requests to have been made are found here</h3>
+                  <h3 class="card-title">Today's Appointments</h3>
                 </div>
                 <!-- /.card-header -->
                 <div id="editData" class="modal fade">
-                  <div class="modal-dialog  ">
+                  <div class="modal-dialog ">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h5 class="modal-title">View Request</h5>
+                        <h5 class="modal-title">Today's appointments</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
                       </div>
                       <div class="modal-body" id="info_update">
-                        <?php @include("view_appointment.php");?>
-                      </div>
-                      <div class="modal-footer ">
-                      </div>
-                      <!-- /.modal-content -->
-                    </div>
-                    <!-- /.modal-dialog -->
-                  </div>
-                  <!-- /.modal -->
-                </div>
-                <!--   end modal -->
-                <?php
+                       <?php @include("edit_service.php");?>
+                     </div>
+                     <div class="modal-footer ">
+                     </div>
+                     <!-- /.modal-content -->
+                   </div>
+                   <!-- /.modal-dialog -->
+                 </div>
+                 <!-- /.modal -->
+               </div>
+               <!--   end modal -->
+               <?php
                include_once 'functions/functions.php';
                ?>
-                <div class="card-body" style="font-size: small">
-                  <table id="example1" class="table table-bordered table-hover">
-                    <thead> 
-                      <tr>
-                        <th></th>
-                      <th>Service</th> 
+               <div class="card-body">
+                <table id="example1" class="table table-hover">
+                  <thead> 
+                    <tr> 
+                    <th>Service</th> 
                     <th>Client</th>
                     <th>Date</th>
                     <th>Time</th>
                     <th>Location</th>
                     <th>Total</th>
-                    <th>
-                      </tr> 
-                    </thead> 
-                    <tbody>
-                      <?php
-                      $ret=mysqli_query($con,"select *from  tblappointment");
-                      $cnt=1;
-                      while ($row=mysqli_fetch_array($ret)) {
+                    </tr> 
+                  </thead> 
+                  <tbody>
+                    <?php
+                    $date = date("Y-m-d");
+                    $ret=mysqli_query($con,"select * from  tblappointment where status='1' and apt_date='$date';");
+             
+                    while ($row=mysqli_fetch_array($ret)) {
 
-                        ?>
+                      ?>
 
-                          <tr> 
-                        <td><?php echo $cnt;?></td>
+                      <tr> 
                         <td><?php  echo GetServiceName($con,$row['services']);?></td>
                         <td><a class="myLink" href= <?php $str = $row['phone'];
                               $number= ltrim($str, "0");
@@ -111,61 +108,73 @@ if (isset($_SESSION['sid'])) {
                                <?php  echo $row['name'];?></a></td>
                         <td><?php  echo $row['apt_date'];?></td> 
                         <td><?php  echo $row['start_time'].' - '.$row['end_time'];?></td>
-                        <td><a class="myLink" href=  <?php 
+                      
+                        <td ><a class="myLink" href=  <?php 
                         $address = $row['location'];
                           $removeSpace = str_replace(" ","+",$address);
                           $url = str_replace(",","%2C",$removeSpace);
                           echo "https://www.google.com/maps/search/?api=1&query={$url}";
                         ?>> <?php  echo $row['location'];?></a></td>
-                        <td><?php  echo 'R '.$row['total'];?></td> 
+                        <td><?php  echo "R. ".$row['total'];?></td> 
                         <td>
                           <button class="viewBtn"><a href="#" class=" edit_data" id="<?php echo  $row['id']; ?>" title="click for edit">View</a></button></td> 
-                      </tr>    
-                        <?php 
-                        $cnt=$cnt+1;
-                      }?>
-                    </tbody>
-                  </table>
-                </div>
-                <!-- /.card-body -->
+                      </tr>   
+                      <?php 
+                   
+                    }?>
+                  </tbody>
+                </table>
               </div>
-              <!-- /.card -->
+              <!-- /.card-body -->
             </div>
-            <!-- /.col -->
+            <!-- /.card -->
           </div>
-          <!-- /.row -->
+          <!-- /.col -->
         </div>
-        <!-- /.container-fluid -->
-      </section>
-      <!-- /.content -->
-    </div>
-    <!-- /.content-wrapper -->
-    <?php @include("includes/footer.php"); ?>
-
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-      <!-- Control sidebar content goes here -->
-    </aside>
-    <!-- /.control-sidebar -->
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
   </div>
+  <script type='text/javascript'>
+			Swal.fire({
+        position: 'top-end',
+				icon: 'question',
+				title: 'Client Check',
+				text: 'Remember to follow up with clients regarding their appointment by clicking their name for a WhatsApp chat.',
+				timer: 4500,
+        showConfirmButton:false,
+			  });
+			</script>
+  <!-- /.content-wrapper -->
+  <?php @include("includes/footer.php"); ?>
 
-  <!-- ./wrapper -->
-  <?php @include("includes/foot.php"); ?>
-  <script type="text/javascript">
-    $(document).ready(function(){
-      $(document).on('click','.edit_data',function(){
-        var edit_id=$(this).attr('id');
-        $.ajax({
-          url:"view_appointment.php",
-          type:"post",
-          data:{edit_id:edit_id},
-          success:function(data){
-            $("#info_update").html(data);
-            $("#editData").modal('show');
-          }
-        });
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+
+<!-- ./wrapper -->
+<?php @include("includes/foot.php"); ?>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $(document).on('click','.edit_data',function(){
+      var edit_id=$(this).attr('id');
+      $.ajax({
+        url:"view_appointment.php",
+        type:"post",
+        data:{edit_id:edit_id},
+        success:function(data){
+          $("#info_update").html(data);
+          $("#editData").modal('show');
+        }
       });
     });
-  </script>
+  });
+</script>
 </body>
 </html>

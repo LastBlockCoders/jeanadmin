@@ -66,11 +66,11 @@ if(isset($_POST['submit']))
     </script>";
     }
 
-    $sql="INSERT INTO  tblusers(firstname,lastname,username,email,phone,permission,password,sex, userimage, status) VALUES(:name,:surname,:username,:email,:phone,:permission,:password,:sex,:userimage,:status)";
+    $sql="INSERT INTO  tblusers(firstname,lastname,username,email,phone,permission,password,gender, status) VALUES(:firstname,:lastname,:username,:email,:phone,:permission,:password,:gender,:status)";
     $query = $dbh->prepare($sql);
     $query->bindParam(':firstname',$name,PDO::PARAM_STR);
     $query->bindParam(':lastname',$lastname,PDO::PARAM_STR);
-    $query->bindParam(':sex',$sex,PDO::PARAM_STR);
+    $query->bindParam(':gender',$sex,PDO::PARAM_STR);
     $query->bindParam(':phone',$mobile,PDO::PARAM_STR);
     $query->bindParam(':status',$status,PDO::PARAM_STR);
     $query->bindParam(':username',$username,PDO::PARAM_STR);
@@ -130,7 +130,7 @@ if(isset($_POST['submit']))
         <select name="permission" class="form-control" required>
           <option value="Super User">Super User</option>
           <option value="Admin">Admin</option>
-          <option value="Secretary">Secretary</option>
+          <option value="Secretary">Scretary</option>
         </select>
       </div>
       <div class="form-group col-4">
@@ -156,8 +156,9 @@ if(isset($_POST['submit']))
         <label class="" for="register1-email">Gender:</label>
         <select name="sex" class="form-control" required>
           <option value="">Select Gender</option>
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
         </select>
       </div>
     </div>

@@ -1,5 +1,6 @@
 <?php
 include_once 'auth/session.php';
+include_once 'auth/db.php';
 include_once 'includes/dbconnection.php';
 
 if (isset($_SESSION['sid'])) {

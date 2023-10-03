@@ -89,8 +89,8 @@ if (isset($_SESSION['sid'])) {
                   </thead> 
                   <tbody>
                     <?php
-                    $ret=mysqli_query($con,"select distinct tblcustomers.Name,tblinvoice.BillingId,tblinvoice.PostingDate from  tblcustomers   
-                      join tblinvoice on tblcustomers.ID=tblinvoice.Userid  order by tblinvoice.ID desc");
+                    $ret=mysqli_query($con,"select distinct tblcustomers.name,tblinvoice.BillingId,tblinvoice.PostingDate from  tblcustomers   
+                      join tblinvoice on tblcustomers.id=tblinvoice.Userid  order by tblinvoice.id desc");
                     $cnt=1;
                     while ($row=mysqli_fetch_array($ret)) {
 
@@ -99,7 +99,7 @@ if (isset($_SESSION['sid'])) {
                       <tr> 
                         <th scope="row"><?php echo $cnt;?></th> 
                         <td><?php  echo $row['BillingId'];?></td>
-                        <td><?php  echo $row['Name'];?></td>
+                        <td><?php  echo $row['name'];?></td>
                         <td><?php  echo $row['PostingDate'];?></td> 
                         <td><button class="viewBtn"><a href="#"  class=" edit_data" id="<?php echo  $row['BillingId']; ?>" title="click to view">View</a></button></td> 
 

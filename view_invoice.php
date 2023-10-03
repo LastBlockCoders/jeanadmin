@@ -20,9 +20,9 @@ if (isset($_SESSION['sid'])) {
 			<div class="table-responsive bs-example widget-shadow">
 				<?php
 				$invid=$_POST['edit_id'];
-				$ret=mysqli_query($con,"select DISTINCT  tblinvoice.PostingDate, tblcustomers.Name,tblcustomers.Email,tblcustomers.MobileNumber
+				$ret=mysqli_query($con,"select DISTINCT  tblinvoice.PostingDate, tblcustomers.name,tblcustomers.email,tblcustomers.mobilenumber
 					from  tblinvoice 
-					join tblcustomers on tblcustomers.ID=tblinvoice.Userid 
+					join tblcustomers on tblcustomers.id=tblinvoice.Userid 
 					where tblinvoice.BillingId='$invid'");
 				$cnt=1;
 				while ($row=mysqli_fetch_array($ret)) 
@@ -35,11 +35,11 @@ if (isset($_SESSION['sid'])) {
 						</tr>
 						<tr> 
 							<th>Name</th> 
-							<td><?php echo $row['Name']?></td> 
+							<td><?php echo $row['name']?></td> 
 							<th>Contact no.</th> 
-							<td><?php echo $row['MobileNumber']?></td>
+							<td><?php echo $row['mobilenumber']?></td>
 							<th>Email </th> 
-							<td><?php echo $row['Email']?></td>
+							<td><?php echo $row['email']?></td>
 						</tr> 
 						<tr>
 							<th colspan="6">Address</th>
@@ -60,9 +60,9 @@ if (isset($_SESSION['sid'])) {
 
 					<?php
 					
-					$ret=mysqli_query($con,"select tblinvoice.recipients,tblservices.ServiceName,tblservices.Cost  
+					$ret=mysqli_query($con,"select tblservices.name,tblservices.price  
 						from  tblinvoice 
-						join tblservices on tblservices.ID=tblinvoice.ServiceId 
+						join tblservices on tblservices.id=tblinvoice.ServiceId 
 						where tblinvoice.BillingId='$invid'");
 					$cnt=1;
 					$gtotal=0;
@@ -70,8 +70,8 @@ if (isset($_SESSION['sid'])) {
 						?>
 						<tr>
 							<th><?php echo $cnt;?></th>
-							<td><?php echo $row['ServiceName']?></td>	
-							<td><?php echo 'R '.$subtotal=$row['Cost']*$row['recipients']?></td>
+							<td><?php echo $row['name']?></td>	
+							<td><?php echo 'R '.$subtotal=$row['price']?></td>
 						</tr>
 						<?php 
 						
