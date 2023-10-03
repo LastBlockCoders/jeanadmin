@@ -25,10 +25,10 @@ if(isset($_POST['login']))
     if($query -> rowCount() > 0)
     {
       #remind Jean to call customers.
-      $con="update tblusers set password=:newpassword where email=:email and mobile=:mobile";
+      $con="update tblusers set password=:newpassword where email=:email and phone=:phone";
       $chngpwd1 = $dbh->prepare($con);
       $chngpwd1-> bindParam(':email', $email, PDO::PARAM_STR);
-      $chngpwd1-> bindParam(':mobile', $mobile, PDO::PARAM_STR);
+      $chngpwd1-> bindParam(':phone', $mobile, PDO::PARAM_STR);
       $chngpwd1-> bindParam(':newpassword', $newpassword, PDO::PARAM_STR);
       $chngpwd1->execute();
       echo "<script>alert('Your Password succesfully changed');</script>";

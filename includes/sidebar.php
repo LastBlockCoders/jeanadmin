@@ -1,5 +1,5 @@
  <!-- Main Sidebar Container -->
- <aside class="main-sidebar sidebar-dark-primary elevation-4">
+ <aside class="main-sidebar sidebar-dark-primary elevation-4" style="background: teal;">
   <!-- Brand Logo -->
   <a href="dashboard.php" class="brand-link">
     <span class="brand-text font-weight-bold">Jean's Admin</span>
@@ -42,7 +42,7 @@
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
       <li class="nav-header">QUICK MENU</li>
         <li class="nav-item has-treeview menu-open">
-          <a href="dashboard.php" class="nav-link active">
+          <a href="dashboard.php" class="nav-link">
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>
               Dashboard
@@ -132,9 +132,7 @@
               </a>
             </li>
           </ul>
-        </li>';
-        ?>
-        <?php if (($_SESSION['permission'] == "Secretary") || ($_SESSION['permission'] == "Superuser")) echo '
+        </li>
         <li class="nav-item has-treeview">
           <a href="#" class="nav-link">
             <i class="nav-icon fa fa-picture-o"></i>
@@ -160,56 +158,12 @@
         </li>';
         ?>
         <?php if (($_SESSION['permission'] == "Superuser") || ($_SESSION['permission'] == "Admin")) echo '
-        <li class="nav-item has-treeview">
-          <a href="#" class="nav-link">
-            <i class="nav-icon fas fa fa-users"></i>
-            <p>
-              Call-In Clients
-              <i class="right fas fa-angle-left"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview">
-           <li class="nav-item">
-            <a href="add_customer.php" class="nav-link">
-              <i class="fa fa-plus nav-icon" aria-hidden="true"></i>
-              <p>
-                Add Client
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="customer_list.php" class="nav-link">
-            <i class="fa fa-server nav-icon" aria-hidden="true"></i>
-              <p>
-                View List
-              </p>
-            </a>
-          </li>
-        </ul>
-      </li>
-    
-      <li class="nav-item has-treeview">
-        <a href="invoices.php" class="nav-link">
-          <i class="nav-icon fa fa-credit-card"></i>
-          <p>
-            View Invoices
-          </p>
-        </a>
-      </li>
       <li class="nav-header">FIND</li>
       <li class="nav-item has-treeview">
         <a href="search_appointment.php" class="nav-link">
           <i class="nav-icon fa fa-search"></i>
           <p>
             Appointments
-          </p>
-        </a>
-      </li>
-      <li class="nav-item has-treeview">
-        <a href="search_invoice.php" class="nav-link">
-          <i class="nav-icon fa fa-search"></i>
-          <p>
-            Invoice
           </p>
         </a>
       </li>';

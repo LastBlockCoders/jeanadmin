@@ -10,8 +10,8 @@ function test_input($data)
 }
 
 function Reply_to_customer($con, $status, $cid, $name, $email, $service, $date, $time, $total, $recipients){
-    $reply;
-    $message;
+    //$reply;
+    //$message;
     $serviceName = GetServiceName($con, $service);
     try{
         $sql = "update  tblappointment set Status=? where ID=?;";
@@ -24,7 +24,7 @@ function Reply_to_customer($con, $status, $cid, $name, $email, $service, $date, 
         if($status == '0'){
             $reply = "Declined";
         }
-        elseif($satus == '1'){
+        elseif($status == '1'){
             $reply = "Scheduled";
         }
        
@@ -156,7 +156,7 @@ function Reply_to_customer($con, $status, $cid, $name, $email, $service, $date, 
             <td class="es-m-p0r" align="center" style="padding:0;Margin:0;width:560px">
             <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;border-top:2px solid #efefef;border-bottom:2px solid #efefef">
             <tr>
-            <td align="left" class="es-m-txt-r" style="padding:0;Margin:0;padding-top:10px;padding-bottom:20px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, "helvetica neue", helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">Service:&nbsp;<strong>'.$serviceName.'</strong><br>Date:&nbsp;<strong>'.$date.'</strong><br>Time:&nbsp;<strong>'.$time.'</strong><br>Total:&nbsp;<strong>R '.$total_cost.'</strong><br>Recipients:&nbsp;<strong>'.$recipients.'</strong></p></td>
+            <td align="left" class="es-m-txt-r" style="padding:0;Margin:0;padding-top:10px;padding-bottom:20px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, "helvetica neue", helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">Service:&nbsp;<strong>'.$serviceName.'</strong><br>Date:&nbsp;<strong>'.$date.'</strong><br>Time:&nbsp;<strong>'.$time.'</strong><br>Total:&nbsp;<strong>R '.$total.'</strong><br>Recipients:&nbsp;<strong>'.$recipients.'</strong></p></td>
             </tr>
             </table></td>
             </tr>
@@ -359,7 +359,7 @@ function Reply_to_customer($con, $status, $cid, $name, $email, $service, $date, 
             <td class="es-m-p0r" align="center" style="padding:0;Margin:0;width:560px">
             <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;border-top:2px solid #efefef;border-bottom:2px solid #efefef">
             <tr>
-            <td align="left" class="es-m-txt-r" style="padding:0;Margin:0;padding-top:10px;padding-bottom:20px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, "helvetica neue", helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">Service:&nbsp;<strong>'.$serviceName.'</strong><br>Date:&nbsp;<strong>'.$date.'</strong><br>Time:&nbsp;<strong>'.$time.'</strong><br>Total:&nbsp;<strong>R '.$total_cost.'</strong><br>Recipients:&nbsp;<strong>'.$recipients.'</strong></p></td>
+            <td align="left" class="es-m-txt-r" style="padding:0;Margin:0;padding-top:10px;padding-bottom:20px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, "helvetica neue", helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">Service:&nbsp;<strong>'.$serviceName.'</strong><br>Date:&nbsp;<strong>'.$date.'</strong><br>Time:&nbsp;<strong>'.$time.'</strong><br>Total:&nbsp;<strong>R '.$total.'</strong><br>Recipients:&nbsp;<strong>'.$recipients.'</strong></p></td>
             </tr>
             </table></td>
             </tr>
@@ -487,7 +487,7 @@ function Reply_to_customer($con, $status, $cid, $name, $email, $service, $date, 
 }
 
 function emptyInputLogIn($email, $password) {
-    $result;
+    //$result;
     if(empty($email) || empty($password) ){
         $result = true;
     } else {
@@ -498,11 +498,14 @@ function emptyInputLogIn($email, $password) {
 }
 
 function invalidEmail($email) {
-    $result;
-    return (!preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $email)) ? $result = TRUE : $result = FALSE;;
+    //$result;
+    return (!preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $email)) ? $result = TRUE : $result = FALSE;
+
+    //return $result;
 }
 
 function invalidPhone($phone){
+    //$result;
  // Allow +, - and . in phone number
     $filtered_phone_number = filter_var($phone, FILTER_SANITIZE_NUMBER_INT);
  // Remove "-" from number
@@ -528,7 +531,7 @@ function passwordVerifyLength( $password){
 }
 
 function passwordMatch( $password, $repassword ){
-    $result;
+    //$result;
      if( $password == $repassword){
         $result = false;
      } else {
@@ -611,7 +614,7 @@ function signout(){
 
 #fix
 function GetServiceName($con, $id){
-    $serv= mysqli_query($con,"SELECT ServiceName FROM  tblservices WHERE ID = $id;");
+    $serv= mysqli_query($con,"SELECT name FROM  tblservices WHERE id = $id;");
     if($serv){
         while ($row = mysqli_fetch_row($serv)) {
            return $row[0];

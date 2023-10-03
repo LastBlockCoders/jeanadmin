@@ -50,11 +50,11 @@ if(isset($_POST['submit']))
 <form method="post">
   <?php
   $eid=$_POST['edit_id'];
-  $ret=mysqli_query($con,"select * from  tblcustomers where ID='$eid'");
+  $ret=mysqli_query($con,"select * from  tblcustomers where id='$eid'");
   $cnt=1;
   while ($row=mysqli_fetch_array($ret)) 
   {
-    $_SESSION['edid']=$row['ID'];
+    $_SESSION['edid']=$row['id'];
     ?> 
     <div class="card-body">
       <div class="form-group"> 
@@ -68,10 +68,6 @@ if(isset($_POST['submit']))
       <div class="form-group"> 
         <label for="exampleInputPassword1">Mobile Number</label> 
         <input type="text" id="mobilenum" name="mobilenum" class="form-control"  value="<?php  echo $row['mobilenumber'];?>" required="true"> 
-      </div>
-      <div class="form-group"> 
-        <label for="exampleInputEmail1">Address</label> 
-        <textarea type="text" class="form-control" id="details" name="details" placeholder="Details" required="true" rows="4" cols="4"><?php  echo $row['Details'];?></textarea> 
       </div>
       <div class="form-group"> 
         <label for="exampleInputPassword1">Creation Date</label> 

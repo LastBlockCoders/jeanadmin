@@ -13,17 +13,26 @@ if (!isset($_SESSION['sid'])) {
     $name=$_POST['firstname'];
     $lastname=$_POST['lastname'];
     $username=$_POST['username'];
-    $sql="update tblusers set name=:name,username=:username,mobile=:mobile,email=:email,lastname=:lastname where id=:eid";
+
+    $sql="update tblusers set firstname=:firstname,lastname=:lastname, username=:username,phone=:phone,email=:email where id=:eid";
     $query=$dbh->prepare($sql);
-    $query->bindParam(':name',$name,PDO::PARAM_STR);
+    $query->bindParam(':firstname',$name,PDO::PARAM_STR);
     $query->bindParam(':lastname',$lastname,PDO::PARAM_STR);
     $query->bindParam(':username',$username,PDO::PARAM_STR);
     $query->bindParam(':email',$email,PDO::PARAM_STR);
-    $query->bindParam(':mobile',$mobile,PDO::PARAM_STR);
+    $query->bindParam(':phone',$mobile,PDO::PARAM_STR);
     $query->bindParam(':eid',$eid,PDO::PARAM_STR);
     $query->execute();
-    echo '<script>alert("updated successfuly")</script>';
-    echo "<script>window.location.href ='profile.php'</script>";
+    
+    echo "<script type='text/javascript'>
+    Swal.fire({
+      icon: 'success',
+      title: 'Updated',
+      showConfirmButton: false,
+      timer: 2000
+      });
+      setTimeout(function(){window.open('profile.php','_self')},1500);
+      </script>";
   }
   ?>
 
@@ -72,9 +81,9 @@ if (!isset($_SESSION['sid'])) {
                         } else { ?>
                           <img class="rounded-circle mt-5"  src="staff_images/<?php  echo $row->userimage;?>" width="90">
                           <?php 
-                        } ?><span class="font-weight-bold"><?php  echo $row->name;?> <?php  echo $row->lastname;?></span><span class="text-black-50"><?php  echo $row->email;?></span><span><?php  echo $row->phone;?></span>
+                        } ?><span class="font-weight-bold"><?php  echo $row->firstname;?> <?php  echo $row->lastname;?></span><span class="text-black-50"><?php  echo $row->email;?></span><span><?php  echo $row->phone;?></span>
                         <div class="mt-3">
-                          <a href="update_userimage.php?id=<?php echo $id;?>">Edit Image</a>
+                          <a href="update_userimage.php?id=<?php echo $_SESSION['sid'];?>">Edit Image</a>
                         </div>
                       </div>
                     </div>
@@ -91,7 +100,7 @@ if (!isset($_SESSION['sid'])) {
                         </div>
                         <div class="row mt-3">
                           <div class="col-md-6"><input type="text" class="form-control" name="email" value="<?php  echo $row->email;?>" required></div>
-                          <div class="col-md-6"><input type="text" class="form-control" value="0<?php echo $row->phone; ?>" name="mobile" required></div>
+                          <div class="col-md-6"><input type="text" class="form-control" value="<?php echo $row->phone; ?>" name="mobile" required></div>
                         </div>
                         <div class="row mt-3">
                           <div class="col-md-6">

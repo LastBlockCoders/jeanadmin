@@ -14,59 +14,6 @@ if (isset($_SESSION['sid'])) {
 }else{
   header('location:logout.php');
 }
-
-  if(isset($_POST['submit']))
-  {
-    $name=$_POST['name'];
-    $email=$_POST['email'];
-    $mobilenum=$_POST['mobilenum'];
-
-    if(invalidEmail($email) != false){
-      echo "<script type='text/javascript'>
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Something went wrong',
-        showConfirmButton: false,
-        timer: 2000
-        });
-      </script>";  
-    }
-    if(invalidPhone($mobilenum)){
-      echo "<script type='text/javascript'>
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Something went wrong',
-        showConfirmButton: false,
-        timer: 2000
-        });
-      </script>";  
-    }
-
-    $query=mysqli_query($con, "insert into  tblcustomers(name,email,mobilenumber) value('$name','$email','$mobilenum')");
-    if ($query) {
-      echo "<script type='text/javascript'>
-      Swal.fire({
-        icon: 'success',
-        title: 'Client Added!',
-        showConfirmButton: false,
-        timer: 2000
-        });
-        setTimeout(function(){window.open('add_customer.php','_self')},1500);
-      </script>";
-    } else {
-      echo "<script type='text/javascript'>
-			Swal.fire({
-				icon: 'error',
-				title: 'Oops...',
-				text: 'Something went wrong',
-        showConfirmButton: false,
-				timer: 2000
-			  });
-			</script>";    
-    } 
-  }
   ?>
   <!DOCTYPE html>
   <html>
@@ -110,7 +57,7 @@ if (isset($_SESSION['sid'])) {
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form method="post" class="rounded">
+                <form method="post" class="rounded" action="includes/ad_cus.inc.php">
                   <div class="card-body">
                     <div class="form-group"> 
                       <label for="exampleInputEmail1">Name</label> 
@@ -123,10 +70,6 @@ if (isset($_SESSION['sid'])) {
                     <div class="form-group"> 
                       <label for="exampleInputEmail1">Mobile Number</label> 
                       <input type="text" class="form-control" id="mobilenum" name="mobilenum" placeholder="Mobile Number" value="" required="true" >
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputEmail1">Address/Details</label> 
-                      <textarea type="text" class="form-control" id="details" name="details" placeholder="Details" required="true" rows="4" cols="4"></textarea> 
                     </div>
                     <button type="submit" name="submit" class="btn ResBtn">Add</button>
                   </form> 
@@ -142,6 +85,31 @@ if (isset($_SESSION['sid'])) {
         <!-- /.content -->
       </div>
       <!-- /.content-wrapper -->
+      <?php if(isset($_GET['error'])){
+          if($_GET['error'] == 'number'){
+            echo "<script type='text/javascript'>
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Incorrect number',
+              showConfirmButton: false,
+              timer: 2000
+              });
+            </script>";
+          }elseif($_GET['error'] == 'email'){
+            echo "<script type='text/javascript'>
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Incorrect email',
+        showConfirmButton: false,
+        timer: 2000
+        });
+      </script>";  
+          }
+      }
+
+      ?>
       <?php @include("includes/footer.php"); ?>
     </div>
     <!-- ./wrapper -->

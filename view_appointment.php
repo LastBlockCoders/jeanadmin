@@ -23,7 +23,7 @@ else{
     $ret=mysqli_query($con,"select * from tblappointment where id='$cid'");
     $cnt=1;
     while ($row=mysqli_fetch_array($ret)) {
-     $_SESSION['aid']=$row['ID'];
+     $_SESSION['aid']=$row['id'];
 
      ?>
      <table class="table table-bordered">
@@ -55,7 +55,7 @@ else{
       </tr>
       <tr>
         <th>Date</th>
-        <td style='color: teal;'><?php  echo $row['apt_start'];?></td>
+        <td style='color: teal;'><?php  echo $row['apt_date'];?></td>
       </tr>
 
       <tr>

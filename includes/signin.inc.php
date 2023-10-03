@@ -1,8 +1,7 @@
 <?php
-include_once '..auth/session.php';
+include_once '../auth/session.php';
 include_once 'dbconnection.php';
 include_once '../functions/functions.php';
-include_once 'missed.inc.php';
 
 
 if(isset($_POST['login'])){

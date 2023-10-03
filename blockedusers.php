@@ -1,11 +1,10 @@
 
 <?php 
 include_once 'auth/session.php';
-include_once 'auth/db.php';
-include('includes/dbconnection.php');
+include_once 'includes/dbconnection.php';
 ?>
 <div class="card-body">
- <table  class="table table-bordered table-striped">
+ <table class="table table-bordered table-responsive">
   <thead>
     <tr>
       <th class="text-center">Name</th>
@@ -33,12 +32,15 @@ include('includes/dbconnection.php');
          <td class="text-left" ><?php  echo htmlentities($row->email);?></td>
          <td class="text-left"><?php  echo htmlentities($row->permission);?></td>
          <td class="text-left">
-           <a href="userregister.php?blockid=<?php echo ($row->id);?>">Unblock</i></a>
+          <form action='includes/restore.inc.php' method='post'>
+           <input type="hidden" name="blockid" value="<?php echo ($row->id);?>"/>
+           <button type="submit" name="submit" class="editBtn">Unblock</button>
+          </form>
          </td>
        </tr>
        <?php 
      }
-   } ?>
+   }; ?>
  </tbody>
 </table>
 </div>
